@@ -1,1096 +1,1287 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIIP Level 4 Lesson 13 Quiz</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Noto Sans KR', 'Battambang', sans-serif;
-            background-color: #0A0E1A;
-        }
-        .custom-card {
-            background-color: #161B2E;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KIIP Level 4 Lesson 13 Quiz - 환경 보호</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --bg:#0A0E1A;
+      --card:#161B2E;
+      --primary:#FFC107;
+      --correct:#10B981;
+      --incorrect:#EF4444;
+      --muted:#94A3B8;
+      --white:#FFFFFF;
+    }
+    body{
+      background:var(--bg);
+      color:var(--white);
+      font-family:"Noto Sans Khmer","Noto Sans KR","Khmer OS System","Segoe UI",sans-serif;
+    }
+    .card-bg{ background:var(--card); }
+    .text-muted{ color:var(--muted); }
+    .btn-primary{
+      background:var(--primary);
+      color:#111827;
+      font-weight:700;
+      transition:.2s ease;
+    }
+    .btn-primary:hover{ filter:brightness(1.05); transform:translateY(-1px); }
+    .btn-secondary{
+      background:#24304f;
+      color:#fff;
+      transition:.2s ease;
+    }
+    .btn-secondary:hover{ background:#2d3b63; }
+    .btn-danger{
+      background:#5a2230;
+      color:#fff;
+    }
+    .option-btn{
+      border:1px solid #334155;
+      background:#111827;
+      transition:.2s ease;
+    }
+    .option-btn:hover{ background:#1f2937; border-color:#475569; }
+    .option-btn.correct{
+      background:rgba(16,185,129,.15);
+      border-color:var(--correct);
+      color:#d1fae5;
+    }
+    .option-btn.incorrect{
+      background:rgba(239,68,68,.15);
+      border-color:var(--incorrect);
+      color:#fee2e2;
+    }
+    .option-btn.disabled{
+      opacity:.55;
+      pointer-events:none;
+    }
+    .speaker-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:32px;
+      height:32px;
+      border-radius:9999px;
+      background:#24304f;
+      color:#fff;
+      font-size:16px;
+      margin-left:8px;
+    }
+    .speaker-btn:hover{ background:#2d3b63; }
+    .pill{
+      border:1px solid #334155;
+      background:#101827;
+    }
+    .hidden-el{ display:none !important; }
+    .explanation-box{
+      background:#0f172a;
+      border:1px solid #334155;
+    }
+    .progress-bar{
+      height:10px;
+      background:#1f2937;
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .progress-fill{
+      height:100%;
+      background:var(--primary);
+      transition:width .3s ease;
+    }
+    .review-card{
+      background:#111827;
+      border:1px solid #334155;
+    }
+  </style>
 </head>
-<body class="text-white min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
-
-    <header class="bg-[#161B2E] border-b border-slate-800 p-4 sticky top-0 z-50 shadow-md flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <button onclick="quizManager.goBack()" class="text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-arrow-left text-xl"></i>
-            </button>
-            <div>
-                <h1 class="text-amber-400 font-bold text-base md:text-lg">KIIP កម្រិត ៤ - មេរៀនទី ១៣</h1>
-                <p class="text-xs text-slate-400">제13과 환경 보호 (ការការពារបរិស្ថាន)</p>
-            </div>
+<body class="min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <header class="mb-6">
+      <div class="card-bg rounded-2xl p-6 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <p class="text-sm text-muted">KIIP Level 4 • Lesson 13</p>
+            <h1 class="text-2xl md:text-3xl font-bold mt-1">환경 보호</h1>
+            <p class="text-muted mt-2">ពាក្យសព្ទ page 180 • វេយ្យាករណ៍: -는 한, -도록 • វប្បធម៌: 환경 보전 운동</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="pill px-3 py-2 rounded-full text-sm">សរុប 30 សំណួរ</span>
+            <span class="pill px-3 py-2 rounded-full text-sm">Korean Only First</span>
+            <span class="pill px-3 py-2 rounded-full text-sm">TTS + Fallback</span>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-            <span id="badge-part" class="bg-amber-500/10 text-amber-400 text-xs px-2.5 py-1 rounded-full border border-amber-500/20 font-medium">ពាក្យសព្ទ & វេយ្យាករណ៍</span>
-            <div class="text-right">
-                <span id="progress-text" class="text-xs text-amber-400 font-bold">1 / 30</span>
-            </div>
-        </div>
+      </div>
     </header>
 
-    <div class="w-full bg-slate-900 h-1.5 sticky top-[69px] z-40">
-        <div id="progress-bar" class="bg-gradient-to-r from-amber-500 to-yellow-400 h-1.5 transition-all duration-300" style="width: 3.33%"></div>
-    </div>
-
-    <main class="max-w-2xl w-full mx-auto p-4 flex-grow flex flex-col justify-center">
-        <div id="quiz-container" class="custom-card rounded-2xl p-5 md:p-6 shadow-xl border border-slate-800 transition-all duration-300">
-            </div>
-    </main>
-
-    <footer class="bg-[#161B2E] border-t border-slate-800 p-4 sticky bottom-0 z-50 shadow-inner">
-        <div class="max-w-2xl w-full mx-auto flex justify-between items-center gap-3">
-            <div class="flex gap-2">
-                <button id="btn-hint-q" onclick="quizManager.toggleHintQuestion()" class="bg-slate-800 border border-slate-700 text-slate-300 hover:text-white px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 transition active:scale-95">
-                    <i class="fa-solid fa-language text-amber-400"></i> ប្រែសំណួរ
-                </button>
-                <button id="btn-hint-50" onclick="quizManager.trigger5050()" class="bg-slate-800 border border-slate-700 text-slate-300 hover:text-white px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 transition active:scale-95">
-                    <i class="fa-solid fa-scissors text-amber-400"></i> កាត់ ៥០/៥០
-                </button>
-                <button id="btn-hint-a" onclick="quizManager.toggleHintAnswers()" class="bg-slate-800 border border-slate-700 text-slate-300 hover:text-white px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 transition active:scale-95">
-                    <i class="fa-solid fa-list-check text-amber-400"></i> ប្រែចម្លើយ
-                </button>
-            </div>
-            <button id="btn-next" onclick="quizManager.nextQuestion()" class="bg-amber-500 text-slate-950 font-bold px-5 py-2 rounded-xl text-sm flex items-center gap-1.5 transition cursor-not-allowed opacity-50" disabled>
-                បន្ទាប់ <i class="fa-solid fa-chevron-right"></i>
-            </button>
+    <main id="app">
+      <section id="startScreen" class="card-bg rounded-2xl p-6 shadow-xl">
+        <h2 class="text-xl font-bold mb-3">សូមស្វាគមន៍មកកាន់កម្មវិធីតេស្តសាកល្បង KIIP កម្រិត 4 មេរៀនទី 13</h2>
+        <ul class="list-disc pl-6 space-y-2 text-muted">
+          <li>ដំបូងបង្ហាញតែភាសាកូរ៉េ ដើម្បីសាកល្បងការយល់ឃើញរបស់អ្នក។</li>
+          <li>ក្រោយឆ្លើយ នឹងបង្ហាញការបកប្រែខ្មែរ របៀបអាន និងការពន្យល់ពេញលេញដោយស្វ័យប្រវត្តិ។</li>
+          <li>មានប៊ូតុងជំនួយ៖ បកប្រែសំណួរ, កាត់ 50/50, បកប្រែចម្លើយ។</li>
+          <li>មានមុខងារ Speaker 🔊 សម្រាប់កូរ៉េ និងខ្មែរ ដោយប្រើ Google TTS ជាមុន និង Web Speech API ជា fallback។</li>
+          <li>ចុងបញ្ចប់អាច Review ចម្លើយទាំងអស់ឡើងវិញបាន។</li>
+        </ul>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button id="startBtn" class="btn-primary px-5 py-3 rounded-xl">ចាប់ផ្ដើមតេស្ត</button>
+          <button class="btn-secondary px-5 py-3 rounded-xl" onclick="window.smartSpeak('환경 보호. KIIP 사급. 열세 과 연습 문제를 시작합니다.', 'ko-KR')">ស្តាប់កូរ៉េ 🔊</button>
+          <button class="btn-secondary px-5 py-3 rounded-xl" onclick="window.smartSpeak('តេស្ត KIIP កម្រិត 4 មេរៀនទី 13 អំពីការការពារបរិស្ថាន ចាប់ផ្តើមហើយ។', 'km-KH')">ស្តាប់ខ្មែរ 🔊</button>
         </div>
-    </footer>
+      </section>
 
-    <script>
-        class SmartAudioPlayer {
-            constructor() {
-                this.currentAudio = null;
-                this.isPlaying = false;
-                this.webUtterance = null;
-            }
+      <section id="quizScreen" class="hidden">
+        <div class="card-bg rounded-2xl p-5 shadow-xl mb-4">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="text-lg font-bold">សំណួរ <span id="currentQ">1</span>/<span id="totalQ">30</span></div>
+              <div id="sectionLabel" class="text-sm px-3 py-1 rounded-full pill"></div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <div class="pill px-3 py-2 rounded-full text-sm">ពិន្ទុ: <span id="scoreLabel">0</span></div>
+              <button id="pauseAudioBtn" class="btn-danger px-3 py-2 rounded-xl">⏸ Pause Audio</button>
+            </div>
+          </div>
+          <div class="progress-bar mt-4">
+            <div id="progressFill" class="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
 
-            speak(text, lang = 'ko-KR') {
-                this.stop();
-                
-                // Try Google TTS First
-                const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${encodeURIComponent(text)}`;
-                this.currentAudio = new Audio(googleTtsUrl);
-                
-                this.currentAudio.play()
-                    .then(() => {
-                        this.isPlaying = true;
-                        this.updateSpeakerUI(true);
-                        this.currentAudio.onended = () => this.handleAudioEnded();
-                    })
-                    .catch((err) => {
-                        console.warn("Google TTS failed, falling back to Web Speech API", err);
-                        this.speakFallback(text, lang);
-                    });
-            }
+        <div class="card-bg rounded-2xl p-6 shadow-xl">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <button id="hintQuestionBtn" class="btn-secondary px-4 py-2 rounded-xl">បកប្រែសំណួរ</button>
+            <button id="fiftyBtn" class="btn-secondary px-4 py-2 rounded-xl">កាត់ 50/50</button>
+            <button id="hintChoicesBtn" class="btn-secondary px-4 py-2 rounded-xl">បកប្រែចម្លើយ</button>
+          </div>
 
-            speakFallback(text, lang) {
-                if (!('speechSynthesis' in window)) {
-                    alert("ឧបករណ៍របស់អ្នកមិនគាំទ្រប្រព័ន្ធអានសំឡេងឡើយ។");
-                    return;
-                }
-                window.speechSynthesis.cancel();
-                this.webUtterance = new SpeechSynthesisUtterance(text);
-                this.webUtterance.lang = lang;
-                
-                this.webUtterance.onstart = () => {
-                    this.isPlaying = true;
-                    this.updateSpeakerUI(true);
-                };
-                this.webUtterance.onend = () => this.handleAudioEnded();
-                this.webUtterance.onerror = () => this.handleAudioEnded();
-                
-                window.speechSynthesis.speak(this.webUtterance);
-            }
+          <div class="mb-5">
+            <div class="flex items-start justify-between gap-3">
+              <h2 id="questionText" class="text-xl font-bold leading-relaxed"></h2>
+              <div class="flex gap-2 shrink-0">
+                <button id="speakQuestionKo" class="speaker-btn" title="Speak Korean">🔊</button>
+                <button id="speakQuestionKm" class="speaker-btn" title="Speak Khmer">🔊</button>
+              </div>
+            </div>
+            <p id="questionKhmer" class="text-muted mt-3 hidden"></p>
+            <p id="questionRoman" class="text-muted mt-2 hidden"></p>
+            <div id="passageBox" class="mt-4 hidden explanation-box rounded-xl p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-semibold mb-2">지문</p>
+                  <p id="passageText" class="leading-7"></p>
+                </div>
+                <div class="flex gap-2 shrink-0">
+                  <button id="speakPassageKo" class="speaker-btn">🔊</button>
+                  <button id="speakPassageKm" class="speaker-btn">🔊</button>
+                </div>
+              </div>
+              <p id="passageKhmer" class="text-muted mt-3 hidden"></p>
+              <p id="passageRoman" class="text-muted mt-2 hidden"></p>
+            </div>
+          </div>
 
-            stop() {
-                if (this.currentAudio) {
-                    this.currentAudio.pause();
-                    this.currentAudio = null;
-                }
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                }
-                this.isPlaying = false;
-                this.updateSpeakerUI(false);
-            }
+          <div id="optionsContainer" class="space-y-3"></div>
 
-            handleAudioEnded() {
-                this.isPlaying = false;
-                this.updateSpeakerUI(false);
-            }
+          <div id="resultArea" class="mt-6 hidden">
+            <div id="resultBadge" class="inline-block px-4 py-2 rounded-xl font-bold"></div>
+            <div class="explanation-box rounded-xl p-4 mt-4">
+              <p id="explanationKo" class="leading-7"></p>
+              <p id="explanationKm" class="text-muted mt-3 leading-7"></p>
+              <p id="vocabBreakdown" class="text-muted mt-3 leading-7"></p>
+            </div>
+          </div>
 
-            updateSpeakerUI(playing) {
-                const icon = document.getElementById('speaker-icon');
-                if (icon) {
-                    if (playing) {
-                        icon.className = 'fa-solid fa-circle-pause text-amber-400 text-xl animate-pulse';
-                    } else {
-                        icon.className = 'fa-solid fa-volume-high text-amber-400 text-xl';
-                    }
-                }
-            }
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button id="checkBtn" class="btn-primary px-5 py-3 rounded-xl">ពិនិត្យចម្លើយ</button>
+            <button id="nextBtn" class="btn-secondary px-5 py-3 rounded-xl hidden">សំណួរបន្ទាប់</button>
+          </div>
+        </div>
+      </section>
 
-            togglePlay(text, lang) {
-                if (this.isPlaying) {
-                    this.stop();
-                } else {
-                    this.speak(text, lang);
-                }
-            }
+      <section id="resultScreen" class="hidden">
+        <div class="card-bg rounded-2xl p-6 shadow-xl">
+          <h2 class="text-2xl font-bold mb-3">លទ្ធផលចុងក្រោយ</h2>
+          <p class="text-lg mb-2">អ្នកបានពិន្ទុ <span id="finalScore" class="font-bold text-yellow-400"></span> / 30</p>
+          <p id="finalMessage" class="text-muted mb-5"></p>
+          <div class="flex flex-wrap gap-3">
+            <button id="reviewBtn" class="btn-primary px-5 py-3 rounded-xl">ឆែកមើលចម្លើយឡើងវិញ</button>
+            <button id="restartBtn" class="btn-secondary px-5 py-3 rounded-xl">ចាប់ផ្ដើមសារជាថ្មី</button>
+            <button class="btn-secondary px-5 py-3 rounded-xl" onclick="window.smartSpeak('수고하셨습니다. 결과를 확인하세요.', 'ko-KR')">ស្តាប់កូរ៉េ 🔊</button>
+            <button class="btn-secondary px-5 py-3 rounded-xl" onclick="window.smartSpeak('អ្នកបានបញ្ចប់ការធ្វើតេស្តហើយ សូមពិនិត្យលទ្ធផល។', 'km-KH')">ស្តាប់ខ្មែរ 🔊</button>
+          </div>
+        </div>
+
+        <div id="reviewContainer" class="mt-6 hidden"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      let currentAudio = null;
+      let fallbackUtterance = null;
+
+      function stopCurrentAudio() {
+        try {
+          if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio = null;
+          }
+        } catch (e) {}
+        try {
+          window.speechSynthesis.cancel();
+        } catch (e) {}
+        fallbackUtterance = null;
+      }
+
+      function googleTTSUrl(text, lang) {
+        const tl = lang || 'ko-KR';
+        const simpleLang = tl.startsWith('km') ? 'km' : 'ko';
+        return 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + encodeURIComponent(simpleLang) + '&q=' + encodeURIComponent(text);
+      }
+
+      async function speakWithFallback(text, lang='ko-KR') {
+        stopCurrentAudio();
+        const isLocalFile = location.protocol === 'file:';
+        if (!isLocalFile) {
+          try {
+            const url = googleTTSUrl(text, lang);
+            const audio = new Audio(url);
+            currentAudio = audio;
+            audio.onerror = function() {
+              webSpeechSpeak(text, lang);
+            };
+            await audio.play().catch(() => {
+              webSpeechSpeak(text, lang);
+            });
+            return;
+          } catch (e) {
+            webSpeechSpeak(text, lang);
+            return;
+          }
+        } else {
+          webSpeechSpeak(text, lang);
+        }
+      }
+
+      function webSpeechSpeak(text, lang='ko-KR') {
+        try {
+          if (!('speechSynthesis' in window)) return;
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = lang || 'ko-KR';
+          const voices = window.speechSynthesis.getVoices();
+          const matched = voices.find(v => v.lang === utter.lang) ||
+                          voices.find(v => v.lang.startsWith((utter.lang || 'ko-KR').slice(0,2)));
+          if (matched) utter.voice = matched;
+          fallbackUtterance = utter;
+          window.speechSynthesis.speak(utter);
+        } catch (e) {}
+      }
+
+      window.smartSpeak = function(text, lang='ko-KR') {
+        speakWithFallback(text, lang);
+      };
+
+      window.pauseSmartSpeak = function() {
+        try {
+          if (currentAudio && !currentAudio.paused) {
+            currentAudio.pause();
+          }
+          if (window.speechSynthesis && window.speechSynthesis.speaking) {
+            window.speechSynthesis.pause();
+          }
+        } catch (e) {}
+      };
+
+      window.addEventListener('beforeunload', stopCurrentAudio);
+    })();
+  </script>
+
+  <script>
+    const quizData = [
+      {
+        id: 1,
+        section: "어휘/문법",
+        type: "grammar",
+        question: "환경을 보호하려면 일회용품 사용을 줄이_______ 합니다.",
+        questionKh: "ដើម្បីការពារបរិស្ថាន ត្រូវតែកាត់បន្ថយការប្រើប្រាស់របស់ប្រើតែម្តងឱ្យបានច្រើន។",
+        roman: "Hwangyeongeul bohorharyeomyeon ilhoeyongpum sayongeul jurii-dorok hamnida.",
+        answerOptions: [
+          { text: "는 한", kh: "ដរាបណា", roman: "neun han" },
+          { text: "도록", kh: "ឱ្យដល់កម្រិត/ឱ្យបាន", roman: "dorok" },
+          { text: "아도", kh: "ទោះបីជា", roman: "ado" },
+          { text: "자마자", kh: "ភ្លាមៗបន្ទាប់ពី", roman: "jamaja" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "'-도록'은 어떤 목적이나 정도에 이르게 함을 나타냅니다. 환경 보호를 위해 일회용품 사용을 줄이는 목표를 표현하므로 '-도록'이 맞습니다.",
+        explanationKh: "'-도록' ប្រើសម្រាប់បង្ហាញគោលបំណង ឬកម្រិតដែលចង់ឱ្យកើតឡើង។ នៅទីនេះមានន័យថា កាត់បន្ថយការប្រើប្រាស់របស់ប្រើតែម្តងឱ្យបានសមរម្យ ដើម្បីការពារបរិស្ថាន។",
+        vocab: "환경=បរិស្ថាន, 보호하다=ការពារ, 일회용품=របស់ប្រើតែម្តង, 줄이다=កាត់បន្ថយ"
+      },
+      {
+        id: 2,
+        section: "어휘/문법",
+        type: "grammar",
+        question: "모두가 분리수거를 잘하_______ 쓰레기 문제를 줄일 수 있습니다.",
+        questionKh: "ដរាបណាមនុស្សទាំងអស់ធ្វើការបែងចែកសំរាមបានល្អ នោះអាចកាត់បន្ថយបញ្ហាសំរាមបាន។",
+        roman: "Moduga bullisugeoreul jalha-neun han sseuregi munjereul juril su itsseumnida.",
+        answerOptions: [
+          { text: "는 한", kh: "ដរាបណា", roman: "neun han" },
+          { text: "도록", kh: "ឱ្យបាន", roman: "dorok" },
+          { text: "려고", kh: "ដើម្បី", roman: "ryeogo" },
+          { text: "더니", kh: "ហើយឃើញថា", roman: "deoni" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "'-는 한'은 어떤 조건이 유지되는 동안이나 그 조건 아래에서는의 의미입니다. 모두가 분리수거를 잘하는 조건 아래 쓰레기 문제를 줄일 수 있다는 뜻입니다.",
+        explanationKh: "'-는 한' មានន័យថា ដរាបណាលក្ខខណ្ឌមួយនៅតែមាន ឬក្រោមលក្ខខណ្ឌនោះ។ ដូចនេះ ប្រសិនបើមនុស្សទាំងអស់បែងចែកសំរាមបានល្អ នោះអាចកាត់បន្ថយបញ្ហាសំរាមបាន។",
+        vocab: "모두=ទាំងអស់, 분리수거=ការបែងចែកសំរាម, 쓰레기=សំរាម, 문제=បញ្ហា"
+      },
+      {
+        id: 3,
+        section: "어휘/문법",
+        type: "vocab",
+        question: "다음 중 '환경 오염'과 가장 관계가 깊은 것은 무엇입니까?",
+        questionKh: "ក្នុងចំណោមខាងក្រោម តើមួយណាទាក់ទងខ្លាំងបំផុតជាមួយ 'ការបំពុលបរិស្ថាន'?",
+        roman: "Daeum jung 'hwangyeong oyeom'gwa gajang gwangyega gipeun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "맑은 공기", kh: "ខ្យល់បរិសុទ្ធ", roman: "malgeun gonggi" },
+          { text: "깨끗한 물", kh: "ទឹកស្អាត", roman: "kkaekkeuthan mul" },
+          { text: "배기가스", kh: "ឧស្ម័នផ្សែងចេញពីយានយន្ត", roman: "baegigaseu" },
+          { text: "푸른 숲", kh: "ព្រៃបៃតង", roman: "pureun sup" }
+        ],
+        correctAnswer: 2,
+        explanationKo: "'배기가스'는 자동차나 공장에서 나오는 가스로 환경 오염의 대표적인 원인 중 하나입니다.",
+        explanationKh: "'배기가스' គឺឧស្ម័នផ្សែងដែលចេញពីរថយន្ត ឬរោងចក្រ ហើយជាមូលហេតុសំខាន់មួយនៃការបំពុលបរិស្ថាន។",
+        vocab: "환경 오염=ការបំពុលបរិស្ថាន, 배기가스=ឧស្ម័នផ្សែង, 원인=មូលហេតុ, 대표적=សំខាន់/តំណាង"
+      },
+      {
+        id: 4,
+        section: "어휘/문법",
+        type: "vocab",
+        question: "'절약하다'와 뜻이 가장 비슷한 것은 무엇입니까?",
+        questionKh: "តើពាក្យណាមានន័យស្រដៀងបំផុតនឹង '절약하다'?",
+        roman: "'Jeoryakada'wa tteusi gajang biseuthan geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "아끼다", kh: "សន្សំ/ប្រើដោយប្រុងប្រយ័ត្ន", roman: "akkida" },
+          { text: "버리다", kh: "បោះចោល", roman: "beorida" },
+          { text: "낭비하다", kh: "ខ្ជះខ្ជាយ", roman: "nangbihada" },
+          { text: "늘리다", kh: "បង្កើន", roman: "neullida" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "'절약하다'는 돈, 물, 전기 등을 아껴 쓰는 것입니다. 따라서 '아끼다'와 가장 가깝습니다.",
+        explanationKh: "'절약하다' មានន័យថា សន្សំ ឬប្រើប្រាស់ដោយមិនខ្ជះខ្ជាយ ដូច្នេះវាស្រដៀងនឹង '아끼다'។",
+        vocab: "절약하다=សន្សំ, 아끼다=ប្រើដោយប្រុងប្រយ័ត្ន, 낭비하다=ខ្ជះខ្ជាយ, 늘리다=បង្កើន"
+      },
+      {
+        id: 5,
+        section: "어휘/문법",
+        type: "grammar",
+        question: "전기를 아껴 쓰_______ 가족과 함께 약속을 정했습니다.",
+        questionKh: "គ្រួសារបានកំណត់កិច្ចសន្យាថា ត្រូវប្រើអគ្គិសនីឱ្យសន្សំសំចៃ។",
+        roman: "Jeongireul akkyeo sseu-dorok gajokgwa hamkke yaksogeul jeonghaetsseumnida.",
+        answerOptions: [
+          { text: "도록", kh: "ឱ្យបាន", roman: "dorok" },
+          { text: "는 한", kh: "ដរាបណា", roman: "neun han" },
+          { text: "네요", kh: "អូហ៍/បញ្ជាក់អារម្មណ៍", roman: "neyo" },
+          { text: "다가", kh: "ខណៈដែល", roman: "daga" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "약속이나 규칙을 정해서 어떤 행동을 하게 할 때 '-도록'을 씁니다.",
+        explanationKh: "នៅពេលកំណត់កិច្ចសន្យា ឬច្បាប់ដើម្បីឱ្យមានសកម្មភាពណាមួយកើតឡើង គេប្រើ '-도록'។",
+        vocab: "전기=អគ្គិសនី, 아껴 쓰다=ប្រើដោយសន្សំសំចៃ, 약속=ការសន្យា, 정하다=កំណត់"
+      },
+      {
+        id: 6,
+        section: "어휘/문법",
+        type: "grammar",
+        question: "우리가 자연을 소중히 여기_______ 미래 세대도 깨끗한 환경에서 살 수 있습니다.",
+        questionKh: "ដរាបណាយើងគោរពនិងឲ្យតម្លៃធម្មជាតិ ជំនាន់អនាគតក៏អាចរស់នៅក្នុងបរិស្ថានស្អាតបានដែរ។",
+        roman: "Uriga jayeoneul sojunghi yeogi-neun han mirae sedaedo kkaekkeuthan hwangyeongeseo sal su itsseumnida.",
+        answerOptions: [
+          { text: "도록", kh: "ឱ្យបាន", roman: "dorok" },
+          { text: "는 한", kh: "ដរាបណា", roman: "neun han" },
+          { text: "고 나서", kh: "បន្ទាប់ពី", roman: "go naseo" },
+          { text: "지만", kh: "ប៉ុន្តែ", roman: "jiman" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "자연을 소중히 여기는 조건이 유지되어야 미래 세대도 혜택을 받을 수 있으므로 '-는 한'이 적절합니다.",
+        explanationKh: "ព្រោះលទ្ធផលនេះអាស្រ័យលើលក្ខខណ្ឌថា យើងត្រូវឱ្យតម្លៃធម្មជាតិជានិច្ច ដូច្នេះត្រូវប្រើ '-는 한'។",
+        vocab: "자연=ធម្មជាតិ, 소중히 여기다=ឲ្យតម្លៃ, 미래 세대=ជំនាន់អនាគត, 깨끗한 환경=បរិស្ថានស្អាត"
+      },
+      {
+        id: 7,
+        section: "어휘/문법",
+        type: "vocab",
+        question: "다음 중 '재활용'의 예로 가장 알맞은 것은 무엇입니까?",
+        questionKh: "ក្នុងចំណោមខាងក្រោម តើមួយណាជាឧទាហរណ៍សមស្របបំផុតនៃ 'ការកែច្នៃប្រើឡើងវិញ'?",
+        roman: "Daeum jung 'jaehwaryong'ui yero gajang almajeun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "사용한 병을 씻어서 다시 사용한다", kh: "លាងដបដែលប្រើរួចហើយប្រើម្តងទៀត", roman: "sayonghan byeongeul ssiseoseo dashi sayonghanda" },
+          { text: "음식을 남긴다", kh: "ទុកអាហារឱ្យសល់", roman: "eumsigeul namginda" },
+          { text: "물을 계속 틀어 놓는다", kh: "បើកទឹកចោលជានិច្ច", roman: "mureul gyesok teureo nonda" },
+          { text: "전등을 낮에도 켜 둔다", kh: "បើកភ្លើងទុកទាំងពេលថ្ងៃ", roman: "jeondeungeul najedo kyeo dunda" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "'재활용'은 한 번 사용한 물건을 다시 쓰거나 새롭게 활용하는 것입니다.",
+        explanationKh: "'재활용' មានន័យថា យករបស់ដែលបានប្រើហើយ មកប្រើឡើងវិញ ឬកែច្នៃប្រើក្នុងទម្រង់ថ្មី។",
+        vocab: "재활용=កែច្នៃប្រើឡើងវិញ, 병=ដប, 다시 사용하다=ប្រើម្តងទៀត, 남기다=ទុកសល់"
+      },
+      {
+        id: 8,
+        section: "어휘/문법",
+        type: "grammar",
+        question: "아이들이 환경의 중요성을 알_______ 학교에서 교육을 강화하고 있습니다.",
+        questionKh: "សាលាកំពុងពង្រឹងការអប់រំ ដើម្បីឱ្យកុមារយល់អំពីសារៈសំខាន់នៃបរិស្ថាន។",
+        roman: "Aideuri hwangyeongui jungyoseongeul al-dorok hakgyoeseo gyoyugeul ganghwahago itsseumnida.",
+        answerOptions: [
+          { text: "는 한", kh: "ដរាបណា", roman: "neun han" },
+          { text: "도록", kh: "ឱ្យបាន", roman: "dorok" },
+          { text: "으면", kh: "បើ", roman: "eumyeon" },
+          { text: "아야", kh: "ត្រូវតែ", roman: "aya" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "교육을 강화하는 목적은 아이들이 환경의 중요성을 알게 하는 것이므로 '-도록'이 맞습니다.",
+        explanationKh: "គោលបំណងនៃការពង្រឹងការអប់រំ គឺដើម្បីឱ្យកុមារយល់ពីសារៈសំខាន់នៃបរិស្ថាន ដូច្នេះប្រើ '-도록'។",
+        vocab: "중요성=សារៈសំខាន់, 교육=ការអប់រំ, 강화하다=ពង្រឹង, 학교=សាលា"
+      },
+      {
+        id: 9,
+        section: "어휘/문법",
+        type: "vocab",
+        question: "'보전'과 가장 가까운 뜻은 무엇입니까?",
+        questionKh: "តើពាក្យណាមានន័យជិតបំផុតនឹង '보전'?",
+        roman: "'Bojeon'gwa gajang gakkaun tteuseun mueosimnikka?",
+        answerOptions: [
+          { text: "파괴", kh: "ការបំផ្លាញ", roman: "pagoe" },
+          { text: "보호", kh: "ការពារ", roman: "boho" },
+          { text: "낭비", kh: "ការខ្ជះខ្ជាយ", roman: "nangbi" },
+          { text: "오염", kh: "ការបំពុល", roman: "oyeom" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "'보전'은 잘 지키고 보호하여 그대로 유지하는 뜻입니다.",
+        explanationKh: "'보전' មានន័យថា រក្សាទុកឱ្យនៅដដែលដោយការពារ និងថែរក្សាល្អ។",
+        vocab: "보전=ការអភិរក្ស, 보호=ការពារ, 파괴=ការបំផ្លាញ, 유지하다=រក្សាទុក"
+      },
+      {
+        id: 10,
+        section: "어휘/문법",
+        type: "grammar",
+        question: "환경 보호는 한 사람의 노력만으로는 어렵습니다. 모두가 함께하_______ 효과가 큽니다.",
+        questionKh: "ការការពារបរិស្ថានមិនអាចធ្វើបានដោយកម្លាំងមនុស្សតែម្នាក់។ ដរាបណាមនុស្សទាំងអស់ចូលរួមជាមួយគ្នា ប្រសិទ្ធភាពនឹងធំ។",
+        roman: "Hwangyeong bohoneun han saramui noryeongmaneuroneun eoryeopseumnida. Moduga hamkkeha-neun han hyogwaga keumnida.",
+        answerOptions: [
+          { text: "는 한", kh: "ដរាបណា", roman: "neun han" },
+          { text: "도록", kh: "ឱ្យបាន", roman: "dorok" },
+          { text: "는데", kh: "ហើយ/ប៉ុន្តែ", roman: "neunde" },
+          { text: "아서", kh: "ពីព្រោះ", roman: "aseo" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "모두가 함께한다는 조건 아래에서 효과가 크다는 뜻이므로 '-는 한'이 적절합니다.",
+        explanationKh: "ព្រោះវាបង្ហាញលក្ខខណ្ឌថា ដរាបណាមនុស្សទាំងអស់ចូលរួមជាមួយគ្នា ប្រសិទ្ធភាពនឹងកើនឡើង ដូច្នេះប្រើ '-는 한'។",
+        vocab: "노력=ការខិតខំ, 함께하다=ចូលរួមជាមួយគ្នា, 효과=ប្រសិទ្ធភាព, 크다=ធំ"
+      },
+      {
+        id: 11,
+        section: "읽기",
+        type: "reading",
+        passage: "요즘 많은 도시에서는 쓰레기를 줄이기 위해 장바구니 사용 운동을 하고 있습니다. 시민들은 물건을 살 때 비닐봉지 대신 장바구니를 가지고 다니며 환경 보호에 참여하고 있습니다.",
+        passageKh: "សព្វថ្ងៃ ទីក្រុងជាច្រើនកំពុងធ្វើយុទ្ធនាការប្រើកាបូបដាក់ឥវ៉ាន់ ដើម្បីកាត់បន្ថយសំរាម។ ប្រជាពលរដ្ឋយកកាបូបផ្ទាល់ខ្លួនទៅពេលទិញឥវ៉ាន់ ជំនួសថង់ប្លាស្ទិក ហើយចូលរួមការពារបរិស្ថាន។",
+        passageRoman: "Yojeum maneun dosieseo-neun sseuregireul jurigi wihae jangbaguni sayong undongeul hago itsseumnida. Simindeureun mulgeoneul sal ttae binilbongji daesin jangbagunireul gajigo danimyeo hwangyeong bohoe chamyeohago itsseumnida.",
+        question: "이 글의 제목으로 가장 알맞은 것은 무엇입니까?",
+        questionKh: "តើចំណងជើងណាសមស្របបំផុតសម្រាប់អត្ថបទនេះ?",
+        roman: "I geurui jemogeuro gajang almajeun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "장바구니 사용과 환경 보호", kh: "ការប្រើកាបូបដាក់ឥវ៉ាន់ និងការពារបរិស្ថាន", roman: "jangbaguni sayonggwa hwangyeong boho" },
+          { text: "비닐봉지 만드는 방법", kh: "វិធីធ្វើថង់ប្លាស្ទិក", roman: "binilbongji mandeuneun bangbeop" },
+          { text: "도시 교통 문제", kh: "បញ្ហាចរាចរណ៍ទីក្រុង", roman: "dosi gyotong munje" },
+          { text: "시장 할인 행사", kh: "កម្មវិធីបញ្ចុះតម្លៃទីផ្សារ", roman: "sijang harin haengsa" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "글의 중심 내용은 장바구니 사용을 통해 쓰레기를 줄이고 환경을 보호하는 것입니다.",
+        explanationKh: "ខ្លឹមសារសំខាន់នៃអត្ថបទនេះគឺ ការប្រើកាបូបដាក់ឥវ៉ាន់ ដើម្បីកាត់បន្ថយសំរាម និងការពារបរិស្ថាន។",
+        vocab: "장바구니=កាបូបទិញឥវ៉ាន់, 비닐봉지=ថង់ប្លាស្ទិក, 대신=ជំនួស, 참여하다=ចូលរួម"
+      },
+      {
+        id: 12,
+        section: "읽기",
+        type: "reading",
+        passage: "환경 오염이 심해지면서 미세먼지 문제도 커지고 있습니다. 그래서 정부는 대중교통 이용을 늘리고 공장 배출 기준을 강화하고 있습니다.",
+        passageKh: "ដោយសារការបំពុលបរិស្ថានកាន់តែធ្ងន់ធ្ងរ បញ្ហាធូលីល្អិតក៏កំពុងកើនឡើងផងដែរ។ ដូច្នេះរដ្ឋាភិបាលកំពុងលើកកម្ពស់ការប្រើប្រាស់យានជំនិះសាធារណៈ និងពង្រឹងស្តង់ដារបញ្ចេញឧស្ម័នរបស់រោងចក្រ។",
+        passageRoman: "Hwangyeong oyeomi simhaejimyeonseo mise meonji munjedo keojigo itsseumnida. Geuraeseo jeongbuneun daejunggyotong iyongeul neurigo gongjang baechul gijuneul ganghwahago itsseumnida.",
+        question: "다음 중 이 글의 내용과 같은 것은 무엇입니까?",
+        questionKh: "ក្នុងចំណោមខាងក្រោម តើមួយណាត្រូវនឹងខ្លឹមសារអត្ថបទនេះ?",
+        roman: "Daeum jung i geurui naeyonggwa gateun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "미세먼지 문제는 줄어들고 있다.", kh: "បញ្ហាធូលីល្អិតកំពុងថយចុះ", roman: "mise meonji munjeneun jureodeulgo itda" },
+          { text: "정부는 공장 배출 기준을 약하게 했다.", kh: "រដ្ឋាភិបាលបានបន្ថយស្តង់ដារបញ្ចេញឧស្ម័នរោងចក្រ", roman: "jeongbuneun gongjang baechul gijuneul yakage haetda" },
+          { text: "정부는 대중교통 이용을 늘리려고 한다.", kh: "រដ្ឋាភិបាលចង់បង្កើនការប្រើយានជំនិះសាធារណៈ", roman: "jeongbuneun daejunggyotong iyongeul neuriryeogo handa" },
+          { text: "환경 오염은 중요하지 않다.", kh: "ការបំពុលបរិស្ថានមិនសំខាន់ទេ", roman: "hwangyeong oyeomeun jungyohaji anta" }
+        ],
+        correctAnswer: 2,
+        explanationKo: "글에서 정부가 대중교통 이용을 늘리고 있다고 분명히 말하고 있습니다.",
+        explanationKh: "អត្ថបទបាននិយាយច្បាស់ថា រដ្ឋាភិបាលកំពុងបង្កើនការប្រើប្រាស់យានជំនិះសាធារណៈ។",
+        vocab: "미세먼지=ធូលីល្អិត, 정부=រដ្ឋាភិបាល, 대중교통=យានជំនិះសាធារណៈ, 배출 기준=ស្តង់ដារបញ្ចេញ"
+      },
+      {
+        id: 13,
+        section: "읽기",
+        type: "reading",
+        passage: "한 학교에서는 학생들이 직접 텃밭을 가꾸며 자연의 소중함을 배우고 있습니다. 학생들은 채소를 심고 물을 주면서 생명의 가치를 체험합니다.",
+        passageKh: "នៅសាលាមួយ សិស្សានុសិស្សកំពុងដាំសួនបន្លែដោយខ្លួនឯង ហើយរៀនពីតម្លៃនៃធម្មជាតិ។ ពួកគេដាំបន្លែ និងស្រោចទឹក ខណៈពេលដែលទទួលបទពិសោធន៍ពីតម្លៃជីវិត។",
+        passageRoman: "Han hakgyoeseoneun haksaengdeuri jikjeop teotbateul gakkumyeo jayeonui sojunghameul baeugo itsseumnida. Haksaengdeureun chaesoreul simgo mureul jumyeonseo saengmyeongui gachireul cheheomhamnida.",
+        question: "학생들이 텃밭 활동을 통해 배우는 것은 무엇입니까?",
+        questionKh: "តើសិស្សានុសិស្សរៀនអ្វីខ្លះតាមរយៈសកម្មភាពសួនបន្លែ?",
+        roman: "Haksaengdeuri teotbat hwaldongeul tonghae baeuneun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "컴퓨터 사용법", kh: "របៀបប្រើកុំព្យូទ័រ", roman: "keompyuteo sayongbeop" },
+          { text: "자연의 소중함과 생명의 가치", kh: "តម្លៃនៃធម្មជាតិ និងជីវិត", roman: "jayeonui sojunghamgwa saengmyeongui gachi" },
+          { text: "시험 보는 기술", kh: "បច្ចេកទេសប្រឡង", roman: "siheom boneun gisul" },
+          { text: "운동 경기 규칙", kh: "ច្បាប់កីឡា", roman: "undong gyeonggi gyuchik" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "글에서 학생들이 자연의 소중함과 생명의 가치를 체험한다고 했습니다.",
+        explanationKh: "អត្ថបទបាននិយាយថា សិស្សរៀនពីតម្លៃនៃធម្មជាតិ និងតម្លៃជីវិត។",
+        vocab: "텃밭=សួនបន្លែតូច, 가꾸다=ថែទាំដាំដុះ, 생명=ជីវិត, 가치=តម្លៃ"
+      },
+      {
+        id: 14,
+        section: "읽기",
+        type: "reading",
+        passage: "요즘은 카페에서도 개인 컵을 가져오면 할인해 주는 곳이 많습니다. 이런 작은 실천이 모이면 쓰레기를 줄이는 데 큰 도움이 됩니다.",
+        passageKh: "សព្វថ្ងៃ នៅហាងកាហ្វេជាច្រើន ប្រសិនបើអតិថិជនយកកែវផ្ទាល់ខ្លួនមក នឹងទទួលបានការបញ្ចុះតម្លៃ។ ការអនុវត្តតូចៗបែបនេះ បើប្រមូលផ្តុំគ្នា នឹងជួយកាត់បន្ថយសំរាមបានយ៉ាងច្រើន។",
+        passageRoman: "Yojeumeun kapeeseodo gaein keobeul gajyeo omyeon harinhae juneun gosi manseumnida. Ireon jageun silcheoni moyeon sseuregireul jurineun de keun doumi doemnida.",
+        question: "이 글에서 말하는 '작은 실천'의 예는 무엇입니까?",
+        questionKh: "នៅក្នុងអត្ថបទនេះ ឧទាហរណ៍នៃ 'ការអនុវត្តតូចៗ' គឺអ្វី?",
+        roman: "I geureseo malhaneun 'jageun silcheon'ui yeneun mueosimnikka?",
+        answerOptions: [
+          { text: "개인 컵을 가져오기", kh: "យកកែវផ្ទាល់ខ្លួនមក", roman: "gaein keobeul gajyeoogi" },
+          { text: "커피를 많이 마시기", kh: "ផឹកកាហ្វេច្រើន", roman: "keopireul mani masigi" },
+          { text: "매일 택시 타기", kh: "ជិះតាក់ស៊ីរាល់ថ្ងៃ", roman: "maeil taeksi tagi" },
+          { text: "플라스틱 컵 버리기", kh: "បោះចោលកែវប្លាស្ទិក", roman: "peullaseutik keop beorigi" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "개인 컵을 가져오는 행동이 대표적인 작은 실천으로 제시되었습니다.",
+        explanationKh: "ការយកកែវផ្ទាល់ខ្លួនមក ត្រូវបានលើកឡើងជាឧទាហរណ៍នៃសកម្មភាពតូចៗដែលជួយបរិស្ថាន។",
+        vocab: "개인 컵=កែវផ្ទាល់ខ្លួន, 할인=បញ្ចុះតម្លៃ, 실천=ការអនុវត្ត, 도움=ជំនួយ"
+      },
+      {
+        id: 15,
+        section: "읽기",
+        type: "reading",
+        passage: "지구 온난화로 인해 여름은 더워지고 겨울은 짧아지고 있습니다. 이에 따라 에너지를 절약하려는 노력이 더욱 중요해졌습니다.",
+        passageKh: "ដោយសារការក្តៅឡើងនៃភពផែនដី រដូវក្តៅកាន់តែក្តៅ និងរដូវរងារកាន់តែខ្លី។ ដូច្នេះ ការខិតខំសន្សំថាមពលកាន់តែមានសារៈសំខាន់។",
+        passageRoman: "Jigu onnanhwaro inhae yeoreumeun deowojigo gyeoureun jjarajigo itsseumnida. I-e ttara eneojireul jeoryakhararyeoneun noryeogi deouk jungyohaejyeotsseumnida.",
+        question: "이 글의 중심 생각은 무엇입니까?",
+        questionKh: "តើគំនិតសំខាន់របស់អត្ថបទនេះជាអ្វី?",
+        roman: "I geurui jungsim saenggageun mueosimnikka?",
+        answerOptions: [
+          { text: "겨울 스포츠가 인기 있다", kh: "កីឡារដូវរងាកំពុងពេញនិយម", roman: "gyeoul seupocheuga ingi itda" },
+          { text: "에너지 절약의 중요성이 커졌다", kh: "សារៈសំខាន់នៃការសន្សំថាមពលបានកើនឡើង", roman: "eneoji jeoryagui jungyoseongi keojyeotda" },
+          { text: "여름 휴가가 길어졌다", kh: "វិស្សមកាលរដូវក្តៅវែងឡើង", roman: "yeoreum hyugaga gireo-jyeotda" },
+          { text: "난방비가 싸졌다", kh: "ថ្លៃកំដៅថោកลง", roman: "nanbangbiga ssajyeotda" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "지구 온난화 현상 때문에 에너지 절약의 중요성이 더 커졌다는 내용입니다.",
+        explanationKh: "ខ្លឹមសារសំខាន់គឺ ដោយសារការក្តៅឡើងនៃភពផែនដី ការសន្សំថាមពលកាន់តែសំខាន់។",
+        vocab: "지구 온난화=ការក្តៅឡើងនៃភពផែនដី, 에너지=ថាមពល, 절약=សន្សំ, 중요하다=សំខាន់"
+      },
+      {
+        id: 16,
+        section: "읽기",
+        type: "reading",
+        passage: "동네 주민들은 매달 한 번씩 공원과 하천 주변을 청소합니다. 이 활동 덕분에 마을이 깨끗해지고 주민들 사이의 협력도 커졌습니다.",
+        passageKh: "ប្រជាជនក្នុងតំបន់សម្អាតសួនច្បារ និងតំបន់ជុំវិញទន្លេរៀងរាល់ខែម្តង។ ដោយសារសកម្មភាពនេះ ភូមិកាន់តែស្អាត ហើយកិច្ចសហការរវាងប្រជាជនក៏កាន់តែរឹងមាំ។",
+        passageRoman: "Dongne jumindeureun maedal han beonssik gongwongwa hacheon jubyeoneul cheongsohamnida. I hwaldong deokbune maeuri kkaekkeuthaejigo jumindeul saiui hyeopryeokdo keojyeotsseumnida.",
+        question: "다음 중 글의 내용과 맞지 않는 것은 무엇입니까?",
+        questionKh: "ក្នុងចំណោមខាងក្រោម តើមួយណាមិនត្រូវនឹងខ្លឹមសារអត្ថបទ?",
+        roman: "Daeum jung geurui naeyonggwa matji anneun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "주민들은 매달 청소 활동을 한다", kh: "ប្រជាជនធ្វើសកម្មភាពសម្អាតរៀងរាល់ខែ", roman: "jumindeureun maedal cheongso hwaldongeul handa" },
+          { text: "마을이 더 깨끗해졌다", kh: "ភូមិកាន់តែស្អាតឡើង", roman: "maeuri deo kkaekkeuthaejyeotda" },
+          { text: "주민들의 협력이 약해졌다", kh: "កិច្ចសហការរបស់ប្រជាជនបានខ្សោយចុះ", roman: "jumindeului hyeopryeogi yakhaejyeotda" },
+          { text: "청소 장소에는 공원과 하천 주변이 있다", kh: "កន្លែងសម្អាតមានសួនច្បារ និងជុំវិញទន្លេ", roman: "cheongso jangsoeneun gongwon-gwa hacheon jubyeoni itda" }
+        ],
+        correctAnswer: 2,
+        explanationKo: "글에서는 주민들 사이의 협력이 커졌다고 했으므로 '약해졌다'는 틀린 내용입니다.",
+        explanationKh: "អត្ថបទបាននិយាយថា កិច្ចសហការរវាងប្រជាជនកាន់តែរឹងមាំ ដូច្នេះ 'ខ្សោយចុះ' គឺខុស។",
+        vocab: "주민=ប្រជាជនក្នុងតំបន់, 하천=ទន្លេតូច/អូរ, 협력=សហការ, 덕분에=ដោយសារ"
+      },
+      {
+        id: 17,
+        section: "읽기",
+        type: "reading",
+        passage: "한 회사는 종이 사용을 줄이기 위해 전자문서 시스템을 도입했습니다. 직원들은 필요한 경우에만 출력하고, 대부분의 자료는 컴퓨터로 확인합니다.",
+        passageKh: "ក្រុមហ៊ុនមួយបានដាក់ប្រព័ន្ធឯកសារអេឡិចត្រូនិក ដើម្បីកាត់បន្ថយការប្រើក្រដាស។ បុគ្គលិកបោះពុម្ពតែពេលចាំបាច់ ហើយឯកសារភាគច្រើនពិនិត្យតាមកុំព្យូទ័រ។",
+        passageRoman: "Han hoesaneun jongi sayongeul jurigi wihae jeonjajeomunseo siseutemeul doiphaetsseumnida. Jikwondeureun piryohan gyeongue-man chulryeokhago, daebubui jaryoneun keompyuteoro hwaginhamnida.",
+        question: "회사가 전자문서 시스템을 도입한 이유는 무엇입니까?",
+        questionKh: "តើហេតុអ្វីបានជាក្រុមហ៊ុនដាក់ប្រើប្រព័ន្ធឯកសារអេឡិចត្រូនិក?",
+        roman: "Hoesaga jeonjajeomunseo siseutemeul doiphan iyuneun mueosimnikka?",
+        answerOptions: [
+          { text: "직원 수를 늘리기 위해", kh: "ដើម្បីបង្កើនចំនួនបុគ្គលិក", roman: "jikwon sureul neurigi wihae" },
+          { text: "종이 사용을 줄이기 위해", kh: "ដើម្បីកាត់បន្ថយការប្រើក្រដាស", roman: "jongi sayongeul jurigi wihae" },
+          { text: "사무실을 옮기기 위해", kh: "ដើម្បីផ្លាស់ទីការិយាល័យ", roman: "samusireul olmgigi wihae" },
+          { text: "회의를 줄이기 위해", kh: "ដើម្បីកាត់បន្ថយកិច្ចប្រជុំ", roman: "hoeuireul jurigi wihae" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "첫 문장에 종이 사용을 줄이기 위해 전자문서 시스템을 도입했다고 나와 있습니다.",
+        explanationKh: "ក្នុងប្រយោគដំបូងបាននិយាយច្បាស់ថា គេដាក់ប្រព័ន្ធនេះ ដើម្បីកាត់បន្ថយការប្រើក្រដាស។",
+        vocab: "전자문서=ឯកសារអេឡិចត្រូនិក, 도입하다=ដាក់ឱ្យប្រើ, 출력하다=បោះពុម្ព, 자료=ឯកសារ/ទិន្នន័យ"
+      },
+      {
+        id: 18,
+        section: "읽기",
+        type: "reading",
+        passage: "어떤 지역에서는 주민들이 자전거를 더 많이 타도록 자전거 도로를 넓히고 있습니다. 그 결과 자동차 사용이 줄고 공기도 조금씩 좋아지고 있습니다.",
+        passageKh: "នៅតំបន់មួយចំនួន គេកំពុងពង្រីកផ្លូវកង់ ដើម្បីឱ្យប្រជាជនជិះកង់កាន់តែច្រើន។ ជាលទ្ធផល ការប្រើរថយន្តបានថយចុះ ហើយខ្យល់ក៏កាន់តែល្អប្រសើរឡើងបន្តិចម្តងៗ។",
+        passageRoman: "Eotteon jiyeogeseoneun jumindeuri jajeongeoreul deo mani tadorok jajeongeo dororeul neolhigo itsseumnida. Geu gyeolgwa jadongcha sayongi julgo gongido jogeumssik joajigo itsseumnida.",
+        question: "이 글을 통해 알 수 있는 것은 무엇입니까?",
+        questionKh: "តើយើងអាចដឹងអ្វីខ្លះតាមរយៈអត្ថបទនេះ?",
+        roman: "I geureul tonghae al su inneun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "자전거 도로 확대는 환경에 도움이 된다", kh: "ការពង្រីកផ្លូវកង់ជួយបរិស្ថាន", roman: "jajeongeo doro hwakdaeneun hwangyeonge doumi doenda" },
+          { text: "자동차 수가 늘고 있다", kh: "ចំនួនរថយន្តកំពុងកើនឡើង", roman: "jadongcha suga neulgo itda" },
+          { text: "공기가 더 나빠지고 있다", kh: "ខ្យល់កំពុងអាក្រក់ទៅ", roman: "gonggiga deo nappajigo itda" },
+          { text: "주민들은 자전거를 싫어한다", kh: "ប្រជាជនមិនចូលចិត្តកង់ទេ", roman: "jumindeureun jajeongeoreul silheohanda" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "자전거 도로를 넓힌 결과 자동차 사용이 줄고 공기가 좋아졌으므로 환경에 도움이 된다는 것을 알 수 있습니다.",
+        explanationKh: "ដោយសារពង្រីកផ្លូវកង់ ការប្រើរថយន្តថយចុះ ហើយខ្យល់ប្រសើរឡើង ដូច្នេះវាជួយដល់បរិស្ថាន។",
+        vocab: "자전거 도로=ផ្លូវកង់, 넓히다=ពង្រីក, 결과=លទ្ធផល, 공기=ខ្យល់"
+      },
+      {
+        id: 19,
+        section: "읽기",
+        type: "reading",
+        passage: "최근에는 친환경 제품을 찾는 소비자가 늘고 있습니다. 가격이 조금 비싸더라도 환경에 덜 해로운 제품을 선택하려는 사람이 많아졌기 때문입니다.",
+        passageKh: "ថ្មីៗនេះ អ្នកប្រើប្រាស់ដែលស្វែងរកផលិតផលមិត្តភាពបរិស្ថានកំពុងកើនឡើង។ មូលហេតុគឺ ទោះបីតម្លៃថ្លៃបន្តិចក៏ដោយ ក៏មានមនុស្សជាច្រើនជ្រើសរើសផលិតផលដែលប៉ះពាល់តិចដល់បរិស្ថាន។",
+        passageRoman: "Choeguen-eneun chinhwangyeong jepumeul chatneun sobijaga neulgo itsseumnida. Gagyeogi jogeum bissadeorado hwangyeonge deol haeroun jepumeul seontaekhararyeoneun sarami manajyeotgi ttaemunimnida.",
+        question: "소비자들이 친환경 제품을 선택하는 이유는 무엇입니까?",
+        questionKh: "តើហេតុអ្វីអ្នកប្រើប្រាស់ជ្រើសរើសផលិតផលមិត្តភាពបរិស្ថាន?",
+        roman: "Sobijadeuri chinhwangyeong jepumeul seontaekhaneun iyuneun mueosimnikka?",
+        answerOptions: [
+          { text: "아주 싸기 때문에", kh: "ព្រោះថោកណាស់", roman: "aju ssagi ttaemune" },
+          { text: "광고가 많기 때문에", kh: "ព្រោះមានការផ្សព្វផ្សាយច្រើន", roman: "gwanggoga manki ttaemune" },
+          { text: "환경에 덜 해롭기 때문에", kh: "ព្រោះវាប៉ះពាល់តិចដល់បរិស្ថាន", roman: "hwangyeonge deol haeropgi ttaemune" },
+          { text: "모양이 크기 때문에", kh: "ព្រោះវាមានទំហំធំ", roman: "moyangi keugi ttaemune" }
+        ],
+        correctAnswer: 2,
+        explanationKo: "글에서 환경에 덜 해로운 제품을 선택하려는 사람이 많아졌다고 설명합니다.",
+        explanationKh: "អត្ថបទបានពន្យល់ថា មនុស្សជាច្រើនជ្រើសរើសផលិតផលមិត្តភាពបរិស្ថាន ព្រោះវាប៉ះពាល់តិចដល់បរិស្ថាន។",
+        vocab: "친환경 제품=ផលិតផលមិត្តភាពបរិស្ថាន, 소비자=អ្នកប្រើប្រាស់, 해롭다=ប៉ះពាល់អាក្រក់, 선택하다=ជ្រើសរើស"
+      },
+      {
+        id: 20,
+        section: "읽기",
+        type: "reading",
+        passage: "학교 앞 하천에 물고기가 다시 나타났습니다. 주민들과 학생들이 오랫동안 쓰레기를 치우고 물을 깨끗하게 관리한 덕분입니다.",
+        passageKh: "ត្រីបានលេចឡើងវិញនៅទន្លេខាងមុខសាលា។ នេះគឺដោយសារប្រជាជន និងសិស្សានុសិស្សបានសម្អាតសំរាម និងគ្រប់គ្រងទឹកឱ្យស្អាតអស់រយៈពេលយូរ។",
+        passageRoman: "Hakgyo ap hacheone mulgogiga dashi natanatsseumnida. Jumindeulgwa haksaengdeuri oraetdongan sseuregireul chiugo mureul kkaekkeuthage gwanrihan deokbuneimnida.",
+        question: "물고기가 다시 나타난 이유로 맞는 것은 무엇입니까?",
+        questionKh: "តើមូលហេតុត្រឹមត្រូវដែលត្រីលេចឡើងវិញគឺអ្វី?",
+        roman: "Mulgogiga dashi natanan iyuro matneun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "사람들이 물고기를 많이 잡았기 때문에", kh: "ព្រោះមនុស្សចាប់ត្រីច្រើន", roman: "saramdeuri mulgogireul mani jabatgi ttaemune" },
+          { text: "하천이 깨끗해졌기 때문에", kh: "ព្រោះទន្លេកាន់តែស្អាត", roman: "hacheoni kkaekkeuthaejyeotgi ttaemune" },
+          { text: "학교가 커졌기 때문에", kh: "ព្រោះសាលាធំឡើង", roman: "hakgyoga keojyeotgi ttaemune" },
+          { text: "비가 오지 않았기 때문에", kh: "ព្រោះមិនភ្លៀង", roman: "biga oji anatgi ttaemune" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "쓰레기를 치우고 물을 깨끗하게 관리한 결과 하천 환경이 좋아져 물고기가 돌아왔습니다.",
+        explanationKh: "ដោយសារសម្អាតសំរាម និងថែទាំទឹកឱ្យស្អាត បរិស្ថានទន្លេប្រសើរឡើង ហើយត្រីបានត្រឡប់មកវិញ។",
+        vocab: "하천=ទន្លេតូច, 물고기=ត្រី, 관리하다=គ្រប់គ្រង, 돌아오다=ត្រឡប់មកវិញ"
+      },
+      {
+        id: 21,
+        section: "읽기",
+        type: "reading",
+        passage: "환경 보호는 특별한 사람만 하는 일이 아닙니다. 가정에서 물을 아껴 쓰고 전등을 끄는 것부터 시작할 수 있습니다.",
+        passageKh: "ការការពារបរិស្ថានមិនមែនជាការងាររបស់មនុស្សពិសេសតែប៉ុណ្ណោះទេ។ វាអាចចាប់ផ្តើមពីការសន្សំទឹក និងបិទភ្លើងនៅក្នុងផ្ទះ។",
+        passageRoman: "Hwangyeong bohoneun teukbyeolhan saramman haneun iri animnida. Gajeongeseo mureul akkyeo sseugo jeondeungeul kkeuneun geotbuteo sijakhal su itsseumnida.",
+        question: "이 글의 내용으로 맞는 것은 무엇입니까?",
+        questionKh: "តើមួយណាត្រឹមត្រូវតាមខ្លឹមសារអត្ថបទនេះ?",
+        roman: "I geurui naeyongeuro matneun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "환경 보호는 전문가만 할 수 있다", kh: "ការពារបរិស្ថានអាចធ្វើបានតែអ្នកជំនាញ", roman: "hwangyeong bohoneun jeonmungaman hal su itda" },
+          { text: "가정에서 작은 실천으로 시작할 수 있다", kh: "អាចចាប់ផ្តើមពីសកម្មភាពតូចៗក្នុងផ្ទះ", roman: "gajeongeseo jageun silcheoneuro sijakhal su itda" },
+          { text: "전등을 계속 켜 두는 것이 좋다", kh: "បើកភ្លើងចោលជានិច្ចគឺល្អ", roman: "jeondeungeul gyesok kyeo duneun geosi jota" },
+          { text: "물을 많이 사용하는 것이 필요하다", kh: "ត្រូវប្រើទឹកច្រើន", roman: "mureul mani sayonghaneun geosi piryohada" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "글에서는 환경 보호를 가정에서 실천할 수 있는 작은 행동부터 시작하자고 말합니다.",
+        explanationKh: "អត្ថបទនិយាយថា ការពារបរិស្ថានអាចចាប់ផ្តើមពីសកម្មភាពតូចៗនៅក្នុងគ្រួសារ។",
+        vocab: "특별하다=ពិសេស, 가정=គ្រួសារ/ផ្ទះ, 전등=ភ្លើង, 시작하다=ចាប់ផ្តើម"
+      },
+      {
+        id: 22,
+        section: "읽기",
+        type: "reading",
+        passage: "우리 동네에서는 매주 토요일마다 중고 물품 나눔 장터가 열립니다. 아직 사용할 수 있는 물건을 서로 나누면서 쓰레기도 줄이고 이웃과의 관계도 좋아집니다.",
+        passageKh: "នៅតំបន់យើង រៀងរាល់ថ្ងៃសៅរ៍មានផ្សារចែករំលែករបស់ប្រើរួច។ ដោយចែករំលែករបស់ដែលនៅអាចប្រើបាន គេអាចកាត់បន្ថយសំរាម ហើយទំនាក់ទំនងជាមួយអ្នកជិតខាងក៏កាន់តែល្អ។",
+        passageRoman: "Uri dongneeseoneun maeju toyoilmada junggo mulpum nanum jangeoga yeollimnida. Ajik sayonghal su inneun mulgeoneul seoro nanumyeonseo sseuregido juligo iutgwaui gwangyedo joajipnida.",
+        question: "이 장터의 좋은 점이 아닌 것은 무엇입니까?",
+        questionKh: "តើមួយណាមិនមែនជាចំណុចល្អរបស់ផ្សារនេះ?",
+        roman: "I jangeoui joeun jeomi anin geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "쓰레기를 줄일 수 있다", kh: "អាចកាត់បន្ថយសំរាម", roman: "sseuregireul juril su itda" },
+          { text: "이웃과의 관계가 좋아진다", kh: "ទំនាក់ទំនងជាមួយអ្នកជិតខាងកាន់តែល្អ", roman: "iutgwaui gwangyega joajinda" },
+          { text: "사용 가능한 물건을 나눌 수 있다", kh: "អាចចែករំលែករបស់ដែលនៅប្រើបាន", roman: "sayong ganeunghan mulgeoneul nanul su itda" },
+          { text: "새 물건만 살 수 있다", kh: "អាចទិញតែរបស់ថ្មីប៉ុណ្ណោះ", roman: "sae mulgeonman sal su itda" }
+        ],
+        correctAnswer: 3,
+        explanationKo: "글의 장터는 중고 물품을 나누는 곳이지 새 물건만 사는 곳이 아닙니다.",
+        explanationKh: "ផ្សារនេះគឺសម្រាប់ចែករំលែករបស់ប្រើរួច មិនមែនជាកន្លែងទិញតែរបស់ថ្មីទេ។",
+        vocab: "중고 물품=របស់ប្រើរួច, 나눔 장터=ផ្សារចែករំលែក, 이웃=អ្នកជិតខាង, 관계=ទំនាក់ទំនង"
+      },
+      {
+        id: 23,
+        section: "읽기",
+        type: "reading",
+        passage: "한 아파트에서는 음식물 쓰레기를 줄이기 위해 필요한 만큼만 음식을 만들자는 캠페인을 시작했습니다. 주민들은 이 캠페인 이후 음식물 쓰레기가 눈에 띄게 줄었다고 말합니다.",
+        passageKh: "នៅអាផាតមិនមួយ គេចាប់ផ្តើមយុទ្ធនាការធ្វើម្ហូបត្រឹមតែបរិមាណចាំបាច់ ដើម្បីកាត់បន្ថយសំរាមអាហារ។ បន្ទាប់ពីយុទ្ធនាការនេះ ប្រជាជននិយាយថា សំរាមអាហារបានថយចុះយ៉ាងច្បាស់។",
+        passageRoman: "Han apateueseoneun eumsingmul sseuregireul jurigi wihae piryohan mankeumman eumsigeul mandeuljaneun kaempeineul sijakhaetsseumnida. Jumindeureun i kaempein ihu eumsingmul sseuregiga nune ttige jureotdago malhamnida.",
+        question: "주민들이 캠페인 이후 느낀 변화는 무엇입니까?",
+        questionKh: "តើការផ្លាស់ប្តូរអ្វីដែលប្រជាជនមានអារម្មណ៍បន្ទាប់ពីយុទ្ធនាការ?",
+        roman: "Jumindeuri kaempein ihu neukkin byeonhwaneun mueosimnikka?",
+        answerOptions: [
+          { text: "음식물 쓰레기가 크게 늘었다", kh: "សំរាមអាហារកើនឡើងខ្លាំង", roman: "eumsingmul sseuregiga keuge neureotda" },
+          { text: "음식물 쓰레기가 눈에 띄게 줄었다", kh: "សំរាមអាហារថយចុះយ៉ាងច្បាស់", roman: "eumsingmul sseuregiga nune ttige jureotda" },
+          { text: "주민 수가 줄었다", kh: "ចំនួនប្រជាជនថយចុះ", roman: "jumin suga jureotda" },
+          { text: "아파트가 더 커졌다", kh: "អាផាតមិនធំឡើង", roman: "apateuga deo keojyeotda" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "글 마지막에 음식물 쓰레기가 눈에 띄게 줄었다고 했습니다.",
+        explanationKh: "នៅចុងអត្ថបទបាននិយាយថា សំរាមអាហារបានថយចុះយ៉ាងច្បាស់។",
+        vocab: "음식물 쓰레기=សំរាមអាហារ, 필요한 만큼=ត្រឹមតែបរិមាណចាំបាច់, 캠페인=យុទ្ធនាការ, 눈에 띄게=យ៉ាងច្បាស់"
+      },
+      {
+        id: 24,
+        section: "읽기",
+        type: "reading",
+        passage: "바다에 버려지는 플라스틱은 물고기와 새들에게 큰 피해를 줍니다. 그래서 많은 단체들이 해변 청소 활동과 플라스틱 사용 줄이기 운동을 함께 진행하고 있습니다.",
+        passageKh: "ប្លាស្ទិកដែលត្រូវបោះចោលចូលសមុទ្រ បង្កការខូចខាតយ៉ាងធំដល់ត្រី និងបក្សី។ ដូច្នេះ អង្គការជាច្រើនកំពុងធ្វើសកម្មភាពសម្អាតឆ្នេរ និងយុទ្ធនាការកាត់បន្ថយការប្រើប្លាស្ទិកជាមួយគ្នា។",
+        passageRoman: "Bada-e beoryeojineun peullaseutigeun mulgogiwa saedeurege keun pihaereul jumnida. Geuraeseo maneun dantchedeuri haebyeon cheongso hwaldonggwa peullaseutik sayong jurigi undongeul hamkke jinhaenghago itsseumnida.",
+        question: "이 글에서 알 수 없는 것은 무엇입니까?",
+        questionKh: "តើមួយណាដែលមិនអាចដឹងពីអត្ថបទនេះ?",
+        roman: "I geureseo al su eomneun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "플라스틱은 바다 생물에게 피해를 준다", kh: "ប្លាស្ទិកបង្កគ្រោះថ្នាក់ដល់សត្វសមុទ្រ", roman: "peullaseutigeun bada saengmurege pihaereul junda" },
+          { text: "단체들이 해변 청소 활동을 한다", kh: "អង្គការធ្វើសកម្មភាពសម្អាតឆ្នេរ", roman: "dantchedeuri haebyeon cheongso hwaldongeul handa" },
+          { text: "플라스틱 사용 줄이기 운동이 진행 중이다", kh: "យុទ្ធនាការកាត់បន្ថយការប្រើប្លាស្ទិកកំពុងដំណើរការ", roman: "peullaseutik sayong jurigi undongi jinhaeng jungida" },
+          { text: "바다 생물은 플라스틱을 좋아한다", kh: "សត្វសមុទ្រចូលចិត្តប្លាស្ទិក", roman: "bada saengmureun peullaseutigeul joahanda" }
+        ],
+        correctAnswer: 3,
+        explanationKo: "글에서는 플라스틱이 피해를 준다고 했지 좋아한다고 하지 않았습니다.",
+        explanationKh: "អត្ថបទបាននិយាយថា ប្លាស្ទិកបង្កការខូចខាត មិនមែនថាសត្វសមុទ្រចូលចិត្តវាទេ។",
+        vocab: "해변=ឆ្នេរ, 피해=ការខូចខាត, 단체=អង្គការ, 진행하다=ដំណើរការ"
+      },
+      {
+        id: 25,
+        section: "읽기",
+        type: "reading",
+        passage: "환경을 보호하기 위한 방법은 어렵지 않습니다. 가까운 거리는 걷고, 필요 없는 전자제품은 플러그를 뽑는 습관만으로도 큰 변화를 만들 수 있습니다.",
+        passageKh: "វិធីការពារបរិស្ថានមិនពិបាកទេ។ គ្រាន់តែមានទម្លាប់ដើរពេលចម្ងាយជិត និងដកខ្សែភ្លើងឧបករណ៍អេឡិចត្រូនិកដែលមិនចាំបាច់ប្រើ ក៏អាចបង្កើតការផ្លាស់ប្តូរធំបានដែរ។",
+        passageRoman: "Hwangyeongeul bohohagi wihan bangbeobeun eoryeopji anseumnida. Gakkaun georineun geotgo, piryoeomneun jeonjajepumeun peulleogeureul ppobneun seupgwanmanyorodo keun byeonhwareul mandeul su itsseumnida.",
+        question: "글쓴이의 생각으로 가장 알맞은 것은 무엇입니까?",
+        questionKh: "តើមួយណាសមស្របបំផុតនឹងគំនិតរបស់អ្នកនិពន្ធ?",
+        roman: "Geulsseuniyi saenggageuro gajang almajeun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "환경 보호는 아주 어렵다", kh: "ការពារបរិស្ថានពិបាកណាស់", roman: "hwangyeong bohoneun aju eoryeopda" },
+          { text: "작은 습관도 큰 변화를 만들 수 있다", kh: "ទម្លាប់តូចៗក៏អាចបង្កើតការផ្លាស់ប្តូរធំបាន", roman: "jageun seupgwando keun byeonhwareul mandeul su itda" },
+          { text: "전자제품은 항상 켜 두어야 한다", kh: "ឧបករណ៍អេឡិចត្រូនិកត្រូវបើកជានិច្ច", roman: "jeonjajepumeun hangsang kyeo dueoya handa" },
+          { text: "가까운 거리도 차를 타야 한다", kh: "ចម្ងាយជិតក៏ត្រូវជិះឡាន", roman: "gakkaun georido chareul taya handa" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "글쓴이는 가까운 거리 걷기나 플러그 뽑기 같은 작은 습관도 큰 변화를 만들 수 있다고 봅니다.",
+        explanationKh: "អ្នកនិពន្ធគិតថា ទម្លាប់តូចៗដូចជាដើរ និងដកខ្សែភ្លើង ក៏អាចបង្កើតការផ្លាស់ប្តូរធំបានដែរ។",
+        vocab: "방법=វិធី, 전자제품=ឧបករណ៍អេឡិចត្រូនិក, 플러그를 뽑다=ដកខ្សែភ្លើង, 습관=ទម្លាប់"
+      },
+      {
+        id: 26,
+        section: "문화",
+        type: "culture",
+        question: "한국의 '환경 보전 운동'과 관련된 설명으로 가장 알맞은 것은 무엇입니까?",
+        questionKh: "តើមួយណាជាការពន្យល់សមស្របបំផុតទាក់ទងនឹង 'ចលនាអភិរក្សបរិស្ថាន' នៅកូរ៉េ?",
+        roman: "Hangugui 'hwangyeong bojeon undong'gwa gwallyeondoen seolmyeongeuro gajang almajeun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "환경을 파괴하면서 경제만 발전시키는 운동", kh: "ចលនាដែលបំផ្លាញបរិស្ថាន ហើយអភិវឌ្ឍតែសេដ្ឋកិច្ច", roman: "hwangyeongeul pagoehamyeonseo gyeongjeman baljeonsikineun undong" },
+          { text: "자연과 환경을 지키기 위한 사회적 실천", kh: "សកម្មភាពសង្គមដើម្បីការពារធម្មជាតិ និងបរិស្ថាន", roman: "jayeongwa hwangyeongeul jikigi wihan sahojeok silcheon" },
+          { text: "쓰레기를 더 많이 만드는 행사", kh: "កម្មវិធីបង្កើតសំរាមកាន់តែច្រើន", roman: "sseuregireul deo mani mandeuneun haengsa" },
+          { text: "자동차 사용을 권장하는 활동", kh: "សកម្មភាពលើកទឹកចិត្តឱ្យប្រើរថយន្ត", roman: "jadongcha sayongeul gwonjanghaneun hwaldong" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "환경 보전 운동은 자연을 보호하고 깨끗한 생활 환경을 유지하려는 사회적 노력입니다.",
+        explanationKh: "ចលនាអភិរក្សបរិស្ថាន គឺជាការខិតខំរបស់សង្គមក្នុងការការពារធម្មជាតិ និងរក្សាបរិស្ថានរស់នៅឱ្យស្អាត។",
+        vocab: "환경 보전 운동=ចលនាអភិរក្សបរិស្ថាន, 사회적=សង្គម, 실천=ការអនុវត្ត, 유지하다=រក្សា"
+      },
+      {
+        id: 27,
+        section: "문화",
+        type: "culture",
+        question: "한국에서 주민들이 함께 참여하는 환경 운동의 예로 알맞은 것은 무엇입니까?",
+        questionKh: "តើមួយណាជាឧទាហរណ៍សមស្របនៃចលនាបរិស្ថានដែលប្រជាជនចូលរួមជាមួយគ្នានៅកូរ៉េ?",
+        roman: "Hangugeseo jumindeuri hamkke chamyeohaneun hwangyeong undongui yero almajeun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "하천과 공원 청소", kh: "សម្អាតទន្លេ និងសួនច្បារ", roman: "hacheongwa gongwon cheongso" },
+          { text: "불필요한 전기 사용 늘리기", kh: "បង្កើនការប្រើអគ្គិសនីមិនចាំបាច់", roman: "bulpiryohan jeongi sayong neurigi" },
+          { text: "일회용품 무료 배포", kh: "ចែករបស់ប្រើតែម្តងដោយឥតគិតថ្លៃ", roman: "ilhoeyongpum muryo baepo" },
+          { text: "쓰레기 분리수거 중단", kh: "បញ្ឈប់ការបែងចែកសំរាម", roman: "sseuregi bullisugeo jungdan" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "주민들이 함께 참여하는 대표적인 환경 운동으로 하천, 공원 청소 활동이 있습니다.",
+        explanationKh: "សកម្មភាពសម្អាតទន្លេ និងសួនច្បារ គឺជាឧទាហរណ៍សំខាន់មួយនៃចលនាបរិស្ថានដែលប្រជាជនចូលរួមជាមួយគ្នា។",
+        vocab: "주민=ប្រជាជន, 참여하다=ចូលរួម, 공원=សួនច្បារ, 청소=សម្អាត"
+      },
+      {
+        id: 28,
+        section: "문화",
+        type: "culture",
+        question: "한국 사회에서 분리수거가 중요한 이유로 가장 알맞은 것은 무엇입니까?",
+        questionKh: "តើមូលហេតុអ្វីសមស្របបំផុតដែលធ្វើឱ្យការបែងចែកសំរាមមានសារៈសំខាន់ក្នុងសង្គមកូរ៉េ?",
+        roman: "Hanguk sahoeso bullisugeoga jungyohan iyuro gajang almajeun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "재활용을 쉽게 하고 자원 낭비를 줄일 수 있어서", kh: "ព្រោះធ្វើឱ្យការកែច្នៃងាយ និងកាត់បន្ថយការខ្ជះខ្ជាយធនធាន", roman: "jaehwaryongeul swipge hago jawon nangbireul juril su itseoseo" },
+          { text: "쓰레기를 더 복잡하게 만들기 위해서", kh: "ដើម្បីធ្វើឱ្យសំរាមកាន់តែស្មុគស្មាញ", roman: "sseuregireul deo bokjapage mandeulgi wihaeseo" },
+          { text: "버리는 시간을 늘리기 위해서", kh: "ដើម្បីបន្ថែមពេលបោះសំរាម", roman: "beorineun siganeul neurigi wihaeseo" },
+          { text: "재활용을 막기 위해서", kh: "ដើម្បីរារាំងការកែច្នៃ", roman: "jaehwaryongeul makgi wihaeseo" }
+        ],
+        correctAnswer: 0,
+        explanationKo: "분리수거는 재활용을 원활하게 하고 자원을 효율적으로 사용하게 해 줍니다.",
+        explanationKh: "ការបែងចែកសំរាមជួយឱ្យការកែច្នៃប្រើឡើងវិញកាន់តែងាយស្រួល និងប្រើធនធានបានមានប្រសិទ្ធភាព។",
+        vocab: "분리수거=ការបែងចែកសំរាម, 재활용=កែច្នៃប្រើឡើងវិញ, 자원=ធនធាន, 낭비=ការខ្ជះខ្ជាយ"
+      },
+      {
+        id: 29,
+        section: "문화",
+        type: "culture",
+        question: "한국에서 친환경 생활 습관으로 보기 어려운 것은 무엇입니까?",
+        questionKh: "តើមួយណាពិបាកចាត់ទុកថាជាទម្លាប់រស់នៅមិត្តភាពបរិស្ថាននៅកូរ៉េ?",
+        roman: "Hangugeseo chinhwangyeong saenghwal seupgwan-euro bogi eoryeoun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "개인 컵 사용하기", kh: "ប្រើកែវផ្ទាល់ខ្លួន", roman: "gaein keop sayonghagi" },
+          { text: "장바구니 들고 다니기", kh: "យកកាបូបទិញឥវ៉ាន់តាមខ្លួន", roman: "jangbaguni deulgo danigi" },
+          { text: "필요 없는 전등 끄기", kh: "បិទភ្លើងដែលមិនចាំបាច់", roman: "piryoeomneun jeondeung kkeugi" },
+          { text: "일회용품 계속 사용하기", kh: "បន្តប្រើរបស់ប្រើតែម្តង", roman: "ilhoeyongpum gyesok sayonghagi" }
+        ],
+        correctAnswer: 3,
+        explanationKo: "일회용품을 계속 사용하는 것은 친환경 생활과 반대되는 행동입니다.",
+        explanationKh: "ការបន្តប្រើរបស់ប្រើតែម្តង គឺផ្ទុយពីទម្លាប់រស់នៅមិត្តភាពបរិស្ថាន។",
+        vocab: "친환경=មិត្តភាពបរិស្ថាន, 생활 습관=ទម្លាប់រស់នៅ, 일회용품=របស់ប្រើតែម្តង, 반대=ផ្ទុយ"
+      },
+      {
+        id: 30,
+        section: "문화",
+        type: "culture",
+        question: "환경 보전 운동이 우리 사회에 주는 긍정적인 영향으로 맞는 것은 무엇입니까?",
+        questionKh: "តើមួយណាត្រឹមត្រូវជាឥទ្ធិពលវិជ្ជមានដែលចលនាអភិរក្សបរិស្ថានផ្តល់ដល់សង្គមរបស់យើង?",
+        roman: "Hwangyeong bojeon undongi uri sahoee juneun geungjeongjeogin yeonghyangeuro matneun geoseun mueosimnikka?",
+        answerOptions: [
+          { text: "환경 문제를 더 심하게 만든다", kh: "ធ្វើឱ្យបញ្ហាបរិស្ថានកាន់តែធ្ងន់", roman: "hwangyeong munjereul deo simhage mandeunda" },
+          { text: "자연을 지키고 공동체 의식을 높인다", kh: "ការពារធម្មជាតិ និងបង្កើនស្មារតីសហគមន៍", roman: "jayeoneul jikigo gongdongche uisigeul nopinda" },
+          { text: "사람들 사이의 갈등만 늘린다", kh: "បង្កើនតែជម្លោះរវាងមនុស្ស", roman: "saramdeul saiui galdeungman neullinda" },
+          { text: "자원 절약과 관계없다", kh: "មិនពាក់ព័ន្ធនឹងការសន្សំធនធាន", roman: "jawon jeoryakgwa gwangye eopda" }
+        ],
+        correctAnswer: 1,
+        explanationKo: "환경 보전 운동은 자연 보호뿐 아니라 함께 실천하는 과정에서 공동체 의식도 높여 줍니다.",
+        explanationKh: "ចលនាអភិរក្សបរិស្ថាន មិនត្រឹមតែការពារធម្មជាតិទេ ប៉ុន្តែក៏ជួយបង្កើនស្មារតីសហគមន៍តាមរយៈការចូលរួមរួមគ្នា។",
+        vocab: "긍정적=វិជ្ជមាន, 영향=ឥទ្ធិពល, 공동체 의식=ស្មារតីសហគមន៍, 자연 보호=ការពារធម្មជាតិ"
+      }
+    ];
+
+    const lessonMap = {
+      level: 4,
+      lesson: 13,
+      titleKo: "환경 보호",
+      titleKh: "ការពារបរិស្ថាន",
+      autoPath: "kiip/level4/lesson13/index.html"
+    };
+
+    const quizManager = {
+      currentIndex: 0,
+      score: 0,
+      userAnswers: [],
+      selectedAnswer: null,
+      isChecked: false,
+      usedQuestionHint: false,
+      usedChoiceHint: false,
+      usedFifty: false,
+
+      start() {
+        this.currentIndex = 0;
+        this.score = 0;
+        this.userAnswers = [];
+        this.selectedAnswer = null;
+        this.isChecked = false;
+        this.resetHelpers();
+
+        document.getElementById('startScreen').classList.add('hidden');
+        document.getElementById('resultScreen').classList.add('hidden');
+        document.getElementById('quizScreen').classList.remove('hidden');
+        document.getElementById('totalQ').textContent = quizData.length;
+        this.renderQuestion();
+      },
+
+      resetHelpers() {
+        this.usedQuestionHint = false;
+        this.usedChoiceHint = false;
+        this.usedFifty = false;
+      },
+
+      renderQuestion() {
+        const q = quizData[this.currentIndex];
+        this.selectedAnswer = null;
+        this.isChecked = false;
+        this.resetHelpers();
+
+        document.getElementById('currentQ').textContent = this.currentIndex + 1;
+        document.getElementById('scoreLabel').textContent = this.score;
+        document.getElementById('sectionLabel').textContent = q.section;
+        document.getElementById('progressFill').style.width = (((this.currentIndex) / quizData.length) * 100) + '%';
+
+        const qText = document.getElementById('questionText');
+        const qKh = document.getElementById('questionKhmer');
+        const qRoman = document.getElementById('questionRoman');
+        const passageBox = document.getElementById('passageBox');
+        const passageText = document.getElementById('passageText');
+        const passageKh = document.getElementById('passageKhmer');
+        const passageRoman = document.getElementById('passageRoman');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const resultArea = document.getElementById('resultArea');
+        const checkBtn = document.getElementById('checkBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        qText.textContent = q.question;
+        qKh.textContent = q.questionKh || "";
+        qRoman.textContent = q.roman || "";
+        qKh.classList.add('hidden');
+        qRoman.classList.add('hidden');
+
+        if (q.passage) {
+          passageBox.classList.remove('hidden');
+          passageText.textContent = q.passage;
+          passageKh.textContent = q.passageKh || "";
+          passageRoman.textContent = q.passageRoman || "";
+          passageKh.classList.add('hidden');
+          passageRoman.classList.add('hidden');
+        } else {
+          passageBox.classList.add('hidden');
+          passageText.textContent = "";
+          passageKh.textContent = "";
+          passageRoman.textContent = "";
         }
 
-        const audioPlayer = new SmartAudioPlayer();
-    </script>
+        optionsContainer.innerHTML = '';
+        q.answerOptions.forEach((opt, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'option-btn w-full text-left rounded-xl p-4';
+          btn.dataset.index = idx;
+          btn.innerHTML = `
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="font-semibold">${idx + 1}. ${opt.text}</div>
+                <div class="choice-kh text-muted mt-2 hidden">${opt.kh || ''}</div>
+                <div class="choice-roman text-muted mt-1 hidden">${opt.roman || ''}</div>
+              </div>
+              <button class="speaker-btn choice-speak-btn" data-speak="${encodeURIComponent(opt.text)}" data-lang="ko-KR" type="button">🔊</button>
+            </div>
+          `;
+          btn.addEventListener('click', (e) => {
+            if (e.target.classList.contains('choice-speak-btn')) return;
+            if (this.isChecked) return;
+            this.selectAnswer(idx);
+          });
+          optionsContainer.appendChild(btn);
+        });
 
-    <script>
-        const quizQuestions = [
-            // PART 1: Vocabulary & Grammar (1-10)
-            {
-                id: 1,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "지구 온난화를 막기 위해 일회용품 사용을 ( ) 합니다.",
-                questionKm: "ដើម្បីទប់ស្កាត់ការកើនឡើងកម្ដៅផែនដី យើងត្រូវតែ ( ) ការប្រើប្រាស់សម្ភារៈប្រើម្ដងរួចចោល។",
-                questionRead: "ជីគូ អូនណាន់ហ្វារឺល ម៉ាក់គី វីហែ អ៊ីលហ្វេយុងភុម សាយុងអ៊ុល ( ) ហាមនីដា។",
-                options: [
-                    { text: "줄이도록", km: "កាត់បន្ថយឱ្យបាន" },
-                    { text: "늘리도록", km: "បង្កើនឱ្យបាន" },
-                    { text: "버리도록", km: "បោះចោលឱ្យបាន" },
-                    { text: "낭비하도록", km: "ខ្ជះខ្ជាយឱ្យបាន" }
-                ],
-                correctIndex: 0,
-                explanation: "វេយ្យាករណ៍ `-도록` ប្រើសម្រាប់បង្ហាញពីគោលបំណង ឬការដាស់តឿនឱ្យធ្វើអ្វីមួយ។ ដើម្បីទប់ស្កាត់បញ្ហាកម្ដៅផែនដី ត្រូវតែ 'កាត់បន្ថយ' (줄이다) ការប្រើប្រាស់របស់ប្រើម្ដងរួចចោល។",
-                vocabBreakdown: [
-                    { word: "지구 온난화", mean: "ការកើនឡើងកម្ដៅផែនដី" },
-                    { word: "막다", mean: "ទប់ស្កាត់ / ការពារ" },
-                    { word: "일회용품", mean: "សម្ភារៈប្រើម្ដងរួចចោល" },
-                    { word: "줄이다", mean: "កាត់បន្ថយ" }
-                ]
-            },
-            {
-                id: 2,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "우리가 환경을 보호하지 ( ) 우리 후손들은 깨끗한 자연을 누릴 수 없을 것이다.",
-                questionKm: "ដរាបណាពួកយើងមិនការពារបរិស្ថានទេនោះ កូនចៅជំនាន់ក្រោយរបស់យើងនឹងមិនអាចរីករាយជាមួយធម្មជាតិដ៏ស្អាតស្អំបានឡើយ។",
-                questionRead: "អ៊ូរីកា ហ្វាន់ឃ្យុងអ៊ុល ភូហូហាជី ( ) អ៊ូរី ហ៊ូស៊ុនឌឺរឺន កេគឹតហាន់ ឆាយ៉ុនអ៊ុល នូរីល ស៊ូ អប្ស៊ឹល កូស៊ីដា។",
-                options: [
-                    { text: "않는 한", km: "ដរាបណាមិន" },
-                    { text: "않는 바람에", km: "ដោយសារតែមិន (លទ្ធផលអាក្រក់)" },
-                    { text: "않는 고장", km: "មិនត្រឹមត្រូវ" },
-                    { text: "않는 대로", km: "តាមដែលមិន" }
-                ],
-                correctIndex: 0,
-                explanation: "វេយ្យាករណ៍ `-는 한` មានន័យថា 'ដរាបណា... / ឱ្យតែ...' ប្រើដើម្បីបង្ហាញពីលក្ខខណ្ឌចាំបាច់មួយនៅក្នុងប្រយោគ។",
-                vocabBreakdown: [
-                    { word: "환경 보호", mean: "ការការពារបរិស្ថាន" },
-                    { word: "후손", mean: "កូនចៅជំនាន់ក្រោយ" },
-                    { word: "깨끗하다", mean: "ស្អាត / បរិសុទ្ធ" },
-                    { word: "누리다", mean: "រីករាយ / ទទួលផល" }
-                ]
-            },
-            {
-                id: 3,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "쓰레기를 분리배출할 때 쓰레기봉투에 ( ) 잘 묶어서 버려야 합니다.",
-                questionKm: "នៅពេលបែងចែកនិងបោះសម្រាម ត្រូវតែចងមាត់ថង់សម្រាមឱ្យបានល្អ ( ) ទើបបោះចោល។",
-                questionRead: "ស្ស្រេគីរឺល ភុនលីបេឈុលហាល តេ ស្ស្រេគីភុងធូអេ ( ) ឆាល មុកកូស៊ូ ភរ្យយ៏យ៉ា ហាមនីដា។",
-                options: [
-                    { text: "넘치지 않도록", km: "ដើម្បីកុំឱ្យហៀរចេញ" },
-                    { text: "넘치는 한", km: "ដរាបណាវាហៀរ" },
-                    { text: "넘치다 보면", km: "ប្រសិនបើសាកហៀរ" },
-                    { text: "넘치느라고", km: "ដោយសារតែរវល់តែហៀរ" }
-                ],
-                correctIndex: 0,
-                explanation: "ប្រើ `-도록` ដើម្បីបង្ហាញពីគោលបំណង 'ដើម្បីកុំឱ្យហៀរចេញ' (넘치지 않도록) នូវសម្រាមពីក្នុងថង់សម្រាម។",
-                vocabBreakdown: [
-                    { word: "분리배출", mean: "ការបែងចែកសម្រាមតាមប្រភេទ" },
-                    { word: "쓰레기봉투", mean: "ថង់សម្រាម" },
-                    { word: "묶다", mean: "ចង" },
-                    { word: "넘치다", mean: "ហៀរ / លើសចំណុះ" }
-                ]
-            },
-            {
-                id: 4,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "다음 밑줄 친 부분과 의미가 비슷한 것을 고르십시오.\n인간은 자연과 함께 살아가야 하는 존재이므로 환경을 보전하기 위해 <u>노력해야 한다</u>.",
-                questionKm: "សូមជ្រើសរើសពាក្យដែលមានន័យស្រដៀងនឹងពាក្យគូសបន្ទាត់ក្រោម៖ មនុស្សលោកគឺជាជីវិតដែលត្រូវរស់នៅជាមួយធម្មជាតិ ដូច្នេះ (ត្រូវតែខិតខំប្រឹងប្រែង) ដើម្បីរក្សាបរិស្ថាន។",
-                questionRead: "អ៊ីនហ្គានឺន ឆាយ៉ុនក្វា ហាំកេ សាលឡាខាយ៉ា ហានឺន ឆុនជេអ៊ីមឺរ៉ូ ហ្វាន់ឃ្យុងអ៊ុល ភូជុនហាគី វីហែ ណូរ្យកហែយ៉ាហានីដា។",
-                options: [
-                    { text: "애써야 한다", km: "ត្រូវតែខិតខំប្រឹងប្រែង" },
-                    { text: "포기해야 한다", km: "ត្រូវតែបោះបង់" },
-                    { text: "무시해야 한다", km: "ត្រូវតែមើលរំលង" },
-                    { text: "의존해야 한다", km: "ត្រូវតែពឹងផ្អែក" }
-                ],
-                correctIndex: 0,
-                explanation: "ពាក្យ `노력하다` (ខិតខំប្រឹងប្រែង) មានន័យដូចគ្នានឹងពាក្យ `애쓰다` (ព្យាយាមខ្លាំង/ខិតខំប្រឹងប្រែង)។",
-                vocabBreakdown: [
-                    { word: "존재", mean: "អត្ថិភាព / ជីវិតដែលមានពិត" },
-                    { word: "보전하다", mean: "អភិរក្ស / រក្សាឱ្យនៅដដែល" },
-                    { word: "애쓰다", mean: "ខិតខំប្រឹងប្រែងយ៉ាងខ្លាំង" }
-                ]
-            },
-            {
-                id: 5,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "미세먼지 농도가 심한 날에는 외출할 때 보건용 마스크를 착용( ) 하세요.",
-                questionKm: "នៅថ្ងៃដែលមានកំហាប់ធូលីល្អិត (Fine dust) ខ្លាំង សូមពាក់ម៉ាស់ការពារសុខភាព ( ) នៅពេលចេញទៅក្រៅ។",
-                questionRead: "មីសេម៉ុនជី ណុងដូកា ស៊ីមហាន ណាលរេនឺន វ៉េឈុលហាល តេ ភូកនយ៉ុង ម៉ាស៊ឺឃឺរឺល ឆាក់យ៉ុង ( ) ហាសេយ៉ូ។",
-                options: [
-                    { text: "하도록", km: "ដើម្បីឱ្យ / សូមធ្វើឱ្យ" },
-                    { text: "하는 한", km: "ដរាបណាធ្វើ" },
-                    { text: "하는 대신에", km: "ជំនួសឱ្យការធ្វើ" },
-                    { text: "하도록 해서", km: "មិនត្រឹមត្រូវ" }
-                ],
-                correctIndex: 0,
-                explanation: "ទម្រង់ `-도록 하다` ប្រើនៅក្នុងការណែនាំ ឬការដាស់តឿនដោយគួរសម 'សូមធ្វើការ... / សូមពាក់...'។",
-                vocabBreakdown: [
-                    { word: "미세먼지", mean: "ធូលីល្អិត (Fine dust)" },
-                    { word: "농도", mean: "កំហាប់ / កម្រិតក្រាស់ស្តើង" },
-                    { word: "보건용 마스크", mean: "ម៉ាស់ការពារសុខភាព" },
-                    { word: "착용하다", mean: "ពាក់ (ម៉ាស់, វ៉ែនតា, ស្រោមដៃ)" }
-                ]
-            },
-            {
-                id: 6,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "환경 오염을 유발하는 화학 물질 대신 친환경 제품을 ( ) 유도해야 합니다.",
-                questionKm: "យើងត្រូវតែណែនាំឱ្យមនុស្ស ( ) ផលិតផលមេត្រីភាពបរិស្ថាន (Eco-friendly) ជំនួសឱ្យសារធាតុគីមីដែលបង្កការបំពុលបរិស្ថាន។",
-                questionRead: "ហ្វាន់ឃ្យុង អូយ៉ុមអ៊ុល យូបាលហានឺន ហ្វាហាក់ មុលជីល ឌេស៊ិន ឈីនហ្វាន់ឃ្យុង ជេភុមអ៊ុល ( ) យូដូហែយ៉ា ហាមនីដា។",
-                options: [
-                    { text: "사용하도록", km: "ប្រើប្រាស់ឱ្យបាន" },
-                    { text: "사용하는 한", km: "ដរាបណាប្រើប្រាស់" },
-                    { text: "사용하느라고", km: "ដោយសារតែរវល់តែប្រើប្រាស់" },
-                    { text: "사용하지 않도록", km: "ដើម្បីកុំឱ្យប្រើប្រាស់" }
-                ],
-                correctIndex: 0,
-                explanation: "យោងតាមអត្ថន័យប្រយោគ គឺត្រូវជម្រុញណែនាំឱ្យមនុស្ស 'ប្រើប្រាស់' (사용하도록) ផលិតផលដែលមិនប៉ះពាល់ដល់បរិស្ថាន។",
-                vocabBreakdown: [
-                    { word: "환경 오염", mean: "ការបំពុលបរិស្ថាន" },
-                    { word: "화학 물질", mean: "សារធាតុគីមី" },
-                    { word: "친환경 제품", mean: "ផលិតផលមេត្រីភាពបរិស្ថាន (Eco)" },
-                    { word: "유도하다", mean: "ណែនាំ / អូសទាញឱ្យធ្វើ" }
-                ]
-            },
-            {
-                id: 7,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "대중교통을 이용( ) 탄소 배출량을 크게 줄일 수 있습니다.",
-                questionKm: "ឱ្យតែយើង ( ) មធ្យោបាយធ្វើដំណើរការសាធារណៈ យើងអាចកាត់បន្ថយបរិមាណបញ្ចេញឧស្ម័នកាបូនបានយ៉ាងច្រើន។",
-                questionRead: "តេជុងឃ្យូថុងអ៊ុល អ៊ីយ៉ុង ( ) ថាន់សូ ផេឈុលល្យាំងអ៊ុល ឃឺកេ ជូរីល ស៊ូ អ៊ីតស៊ឹលនីដា។",
-                options: [
-                    { text: "하는 한", km: "ដរាបណា / ឱ្យតែ" },
-                    { text: "하도록", km: "ដើម្បីឱ្យ" },
-                    { text: "하기는 하지만", km: "ទោះបីជាធ្វើមែន ប៉ុន្តែ" },
-                    { text: "하다 보면", km: "ប្រសិនបើងាកមកធ្វើជាបន្តបន្ទាប់" }
-                ],
-                correctIndex: 0,
-                explanation: "ដរាបណា ឬឱ្យតែយើងនៅតែបន្តប្រើប្រាស់មធ្យោបាយធ្វើដំណើរការសាធារណៈ (`이용하는 한`) នោះយើងនឹងអាចកាត់បន្ថយការបំភាយឧស្ម័នពុលបាន។",
-                vocabBreakdown: [
-                    { word: "대중교통", mean: "មធ្យោបាយធ្វើដំណើរការសាធារណៈ" },
-                    { word: "탄소 배출량", mean: "បរិមាណបំភាយឧស្ម័នកាបូន" },
-                    { word: "이용하다", mean: "ប្រើប្រាស់" }
-                ]
-            },
-            {
-                id: 8,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "다음 중 뜻이 반대인 단어끼리 짝지어진 것을 고르십시오.",
-                questionKm: "សូមជ្រើសរើសគូពាក្យដែលមានន័យផ្ទុយគ្នា៖",
-                questionRead: "ថdisplayម ជុង តិស៊ី ផាន់ដេអ៊ីន ថានគីរី ចាក់ជឺអូចិន កូស៊ីដា។",
-                options: [
-                    { text: "오염되다 - 정화되다", km: "បំពុល - ធ្វើឱ្យបរិសុទ្ធ/ស្អាតឡើងវិញ" },
-                    { text: "보전하다 - 보호하다", km: "អភិរក្ស - ការពារ (ន័យដូច)" },
-                    { text: "낭비하다 - 소비하다", km: "ខ្ជះខ្ជាយ - ប្រើប្រាស់/ចំណាយ" },
-                    { text: "실천하다 - 행동하다", km: "អនុវត្តជាក់ស្តែង - ធ្វើសកម្មភាព (ន័យដូច)" }
-                ],
-                correctIndex: 0,
-                explanation: "`오염되다` មានន័យថា កខ្វក់/រងការបំពុល រីឯ `정화되다` មានន័យថា ស្អាតបរិសុទ្ធឡើងវិញ (តម្រងឱ្យស្អាត) ដូច្នេះវាជាពាក្យផ្ទុយគ្នា។",
-                vocabBreakdown: [
-                    { word: "오염되다", mean: "រងការបំពុល/កខ្វក់" },
-                    { word: "정화되다", mean: "ក្លាយជាបរិសុទ្ធ/ស្អាតឡើងវិញ" },
-                    { word: "낭비하다", mean: "ខ្ជះខ្ជាយ" }
-                ]
-            },
-            {
-                id: 9,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "전기 코드를 뽑는 등 에너지를 절약( ) 노력을 아끼지 말아야 합니다.",
-                questionKm: "ដរាបណាវាជាការសន្សំសំចៃថាមពល ដូចជាការដកឌុយអគ្គិសនីជាដើម យើងមិនត្រូវរុញរាក្នុងការប្រឹងប្រែងឡើយ។",
-                questionRead: "ជុនគី ឃូឌឺរឺល ប៉ុបនឺន ទឹង អេណូជីរឺល ជុលយ៉ាក់ ( ) ណូរ្យកអ៊ុល អាគីជី ម៉ាលឡាយ៉ា ហាមនីដា។",
-                options: [
-                    { text: "하는 한", km: "ដរាបណា / ឱ្យតែជា" },
-                    { text: "하도록", km: "ដើម្បីឱ្យ" },
-                    { text: "해야", km: "ទាល់តែធ្វើ" },
-                    { text: "하는 척", km: "ធ្វើពុតជាធ្វើ" }
-                ],
-                correctIndex: 0,
-                explanation: "ប្រើ `절약하는 한` ដើម្បីបញ្ជាក់ន័យថា 'ដរាបណា/ឱ្យតែជាសកម្មភាពសន្សំសំចៃថាមពល' គឺយើងត្រូវតែធ្វើ។",
-                vocabBreakdown: [
-                    { word: "코드를 뽑다", mean: "ដកឌុយភ្លើងចេញ" },
-                    { word: "에너지 절약", mean: "ការសន្សំសំចៃថាមពល" },
-                    { word: "아끼지 않다", mean: "មិនលាក់លៀម / មិនរុញរា" }
-                ]
-            },
-            {
-                id: 10,
-                part: "ពាក្យសព្ទ & វេយ្យាករណ៍",
-                questionKo: "모든 주민들이 환경 보호 운동에 참여( ) 적극적으로 홍보합시다.",
-                questionKm: "តោះ! ផ្សព្វផ្សាយឱ្យបានសកម្ម ដើម្បីឱ្យប្រជាជនទាំងអស់ ( ) ចូលរួមក្នុងចលនាការពារបរិស្ថាន។",
-                questionRead: "ម៉ូឌឺន ជូមីនឌឺរី ហ្វាន់ឃ្យុង ភូហូ អ៊ុនដុងអេ ឆាំយ៉ូ ( ) ឆុកឃ្លុកជេករ៉ូ ហុងបូហាប់ស៊ីដា។",
-                options: [
-                    { text: "하도록", km: "ដើម្បីឱ្យ / ឱ្យបាន" },
-                    { text: "하는 한", km: "ដរាបណាចូលរួម" },
-                    { text: "하느라고", mean: "ដោយសារតែរវល់ចូលរួម" },
-                    { text: "하기 때문에", km: "ពីព្រោះតែចូលរួម" }
-                ],
-                correctIndex: 0,
-                explanation: "ប្រើ `-하도록` ដើម្បីបង្ហាញពីគោលបំណងនៃការផ្សព្វផ្សាយ គឺចង់ 'ឱ្យប្រជាជនទាំងអស់បានចូលរួម'។",
-                vocabBreakdown: [
-                    { word: "주민", mean: "ប្រជាអ្នកស្រុក / ប្រជាជន" },
-                    { word: "적극적", mean: "ដោយសកម្ម / ដោយស្វាហាប់" },
-                    { word: "홍보하다", mean: "ផ្សព្វផ្សាយ" }
-                ]
-            },
+        resultArea.classList.add('hidden');
+        checkBtn.classList.remove('hidden');
+        nextBtn.classList.add('hidden');
 
-            // PART 2: Reading Comprehension (11-25)
-            {
-                id: 11,
-                part: "ការអានយល់ន័យ",
-                questionKo: "[11-12] 다음 글을 읽고 물음에 답하십시오.\n\n정부는 오늘부터 카페 내에서 일회용 플라스틱 컵 사용을 전면 금지하기로 했다. 최근 쓰레기 매립지 부족 문제와 해양 생태계 파괴 문제가 심각해짐에 따라 내려진 조치다. 이를 위반할 경우 카페 주인에게 과태료가 부과된다.\n\n11. 정부가 일회용 컵 사용을 금지한 주요 원인은 무엇입니까?",
-                questionKm: "[សំណួរ ១១-១២] អានអត្ថបទ រួចឆ្លើយសំណួរ៖ រដ្ឋាភិបាលបានសម្រេចហាមឃាត់ទាំងស្រុងការប្រើប្រាស់កែវជ័រប្រើម្ដងរួចចោលនៅក្នុងហាងកាហ្វេចាប់ពីថ្ងៃនេះតទៅ។ នេះជាវិធានការណ៍ដែលត្រូវបានដាក់ចេញ ដោយសារតែបញ្ហា خسارة (កង្វះខាត) ទីលានចាក់សម្រាម និងការបំផ្លិចបំផ្លាញប្រព័ន្ធអេកូឡូស៊ីសមុទ្រកាន់តែធ្ងន់ធ្ងរ។ ប្រសិនបើល្មើស ម្ចាស់ហាងកាហ្វជានឹងត្រូវរងការផាកពិន័យ។\n\n11. តើមូលហេតុចម្បងដែលរដ្ឋាភិបាលហាមប្រើកែវជ័រគឺអ្វី?",
-                questionRead: "ជុងប៊ូនឺន អូណឺលប៊ូថូ ហ្ខាផេ ណេអេស៊ូ អ៊ីលហ្វេយុង ផ្លាស៊ឹថិក ឃប សាយុងអ៊ុល ឆុនម្យុន ឃឹមកីហាកីរ៉ូ ហេតដា...",
-                options: [
-                    { text: "쓰레기 매립지 부족과 해양 생태계 파괴 때문에", km: "ដោយសារតែកង្វះទីលានចាក់សម្រាម និងការបំផ្លាញអេកូឡូស៊ីសមុទ្រ" },
-                    { text: "카페 주인들의 요청이 있었기 때문에", km: "ដោយសារតែមានការស្នើសុំពីម្ចាស់ហាងកាហ្វេ" },
-                    { text: "플라스틱 컵의 가격이 너무 비싸졌기 때문에", km: "ដោយសារតែកែវជ័រមានតម្លៃថ្លៃពេក" },
-                    { text: "새로운 커피 메뉴를 개발하기 위해서", km: "ដើម្បីអភិវឌ្ឍម៉ឺនុយកាហ្វេថ្មី" }
-                ],
-                correctIndex: 0,
-                explanation: "នៅក្នុងអត្ថបទបានបញ្ជាក់ច្បាស់ថា 최근 쓰레기 매립지 부족 문제와 해양 생태계 파괴 문제가 심각해짐에 따라 (ដោយសារបញ្ហាកង្វះទីលានចាក់សម្រាមនិងអេកូឡូស៊ីសមុទ្ររងការបំផ្លាញធ្ងន់ធ្ងរ)។",
-                vocabBreakdown: [
-                    { word: "전면 금지", mean: "ហាមឃាត់ទាំងស្រុង" },
-                    { word: "쓰레기 매립지", mean: "ទីលានចាក់សម្រាម / កន្លែងកប់សម្រាម" },
-                    { word: "해양 생태계", mean: "ប្រព័ន្ធអេកូឡូស៊ីសមុទ្រ" },
-                    { word: "과태료", mean: "ប្រាក់ផាកពិន័យ" }
-                ]
-            },
-            {
-                id: 12,
-                part: "ការអានយល់ន័យ",
-                questionKo: "12. 위 글의 내용과 일치하는(맞는) 것은 무엇입니까?",
-                questionKm: "12. តើខ្លឹមសារមួយណាត្រឹមត្រូវស្របនឹងអត្ថបទខាងលើ?",
-                questionRead: "វី គ្លឺ ណេយ៉ុងក្វា អ៊ីលឈីហានឺន កូស៊ីដា?",
-                options: [
-                    { text: "규정을 위반하면 카페 주인에게 과태료가 부과된다.", km: "បើល្មើសនឹងបទបញ្ញត្តិ ម្ចាស់ហាងកាហ្វេនឹងត្រូវរងការផាកពិន័យ។" },
-                    { text: "손님들이 원하면 일회용 컵을 마음대로 쓸 수 있다.", km: "បើភ្ញៀវចង់បាន គឺអាចប្រើកែវជ័រតាមចិត្តបាន។" },
-                    { text: "플라스틱 컵 사용 금지는 내년부터 시행된다.", km: "ការហាមប្រើកែវជ័រនឹងចាប់ផ្តើមអនុវត្តពីឆ្នាំក្រោយ។" },
-                    { text: "정부는 종이컵 사용도 함께 금지했다.", km: "រដ្ឋាភិបាលក៏បានហាមឃាត់ការប្រើកែវក្រដាសផងដែរ។" }
-                ],
-                correctIndex: 0,
-                explanation: "ឃ្លាចុងក្រោយនៃអត្ថបទចែងថា '이를 위반할 경우 카페 주인에게 과태료가 부과된다' (បើល្មើស ម្ចាស់ហាងនឹងត្រូវរងការផាកពិន័យ) ដូច្នេះជម្រើសទី ១ គឺត្រឹមត្រូវ។",
-                vocabBreakdown: [
-                    { word: "일치하다", mean: "ត្រូវគ្នា / ស្របគ្នា" },
-                    { word: "규정", mean: "បទបញ្ញត្តិ / ច្បាប់កំណត់" },
-                    { word: "위반하다", mean: "ល្មើស / ល្មើសច្បាប់" }
-                ]
-            },
-            {
-                id: 13,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글을 읽고 빈칸에 들어갈 가장 알맞은 말을 고르십시오.\n\n재활용품을 올바르게 분리배출하는 것은 환경 보호의 첫걸음이다. 플라스틱 병을 버릴 때는 먼저 내용물을 깨끗이 비우고 상표 라벨을 제거해야 한다. 이러한 작은 실천이 ( ) 우리 환경을 더 깨끗하게 유지할 수 있다.",
-                questionKm: "អានអត្ថបទ រួចជ្រើសរើសពាក្យបំពេញចន្លោះ៖ ការបែងចែកសម្រាមកែច្នៃឡើងវិញឱ្យបានត្រឹមត្រូវ គឺជាជំហានដំបូងនៃការការពារបរិស្ថាន។ ពេលបោះដបជ័រ ត្រូវចាក់របស់ខាងក្នុងចេញឱ្យអស់ រួចបកស្លាកសញ្ញាចេញ។ (ដរាបណា) ការអនុវត្តតូចតាចទាំងនេះនៅតែបន្តធ្វើឡើង ពួកយើងនឹងអាចរក្សាបរិស្ថានឱ្យកាន់តែស្អាតបាន។",
-                questionRead: "ជែហ្វាល់យ៉ុងភុមអ៊ុល អុលភារ៉ឺកេ ភុនលីបេឈុលហានឺន កូស៊ឹន...",
-                options: [
-                    { text: "지속되는 한", km: "ដរាបណាវាត្រូវបានបន្ត" },
-                    { text: "지속되도록", km: "ដើម្បីឱ្យវាបន្ត" },
-                    { text: "지속되기는 하지만", km: "ទោះបីជាវាបន្តមែន ប៉ុន្តែ" },
-                    { text: "지속되는 바람에", km: "ដោយសារតែវាបន្ត (លទ្ធផលមិនល្អ)" }
-                ],
-                correctIndex: 0,
-                explanation: "ចន្លោះទំនេរនេះត្រូវការលក្ខខណ្ឌ 'ដរាបណាការអនុវត្តទាំងនេះនៅតែបន្ត' (`지속되는 한`) ទើបធ្វើឱ្យលទ្ធផលខាងក្រោយកើតឡើងបាន។",
-                vocabBreakdown: [
-                    { word: "재활용품", mean: "របស់ដែលអាចកែច្នៃឡើងវិញបាន (Recycle)" },
-                    { word: "첫걸음", mean: "ជំហានដំបូង" },
-                    { word: "라벨 제거", mean: "ការបកស្លាកសញ្ញាចេញ" },
-                    { word: "지속되다", mean: "បន្ត / មិនដាច់សូរ" }
-                ]
-            },
-            {
-                id: 14,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글의 제목으로 가장 알맞은 것은 무엇입니까?\n\n최근 들어 안 쓰는 물건을 버리지 않고 이웃과 나누거나 중고 거래 앱을 통해 필요한 사람에게 판매하는 사람들이 늘고 있다. 이는 물건의 재사용을 통해 자원 낭비를 막고 쓰레기 배출량을 줄이는 데 크게 기여하고 있다.",
-                questionKm: "តើចំណងជើងមួយណាដែលសមស្របបំផុតសម្រាប់អត្ថបទខាងក្រោម?៖ ថ្មីៗនេះ ចំនួនមនុស្សដែលមិនបោះចោលរបស់មិនប្រើប្រាស់ តែយកទៅចែករំលែកជាមួយអ្នកជិតខាង ឬលក់ទៅឱ្យអ្នកត្រូវការតាមរយៈកម្មវិធីលក់ទំនិញជជុះកំពុងតែកើនឡើង។ ការធ្វើបែបនេះបានរួមចំណែកយ៉ាងធំធេងក្នុងការទប់ស្កាត់ការខ្ជះខ្ជាយធនធាន និងកាត់បន្ថយសម្រាមតាមរយៈការប្រើប្រាស់ឡើងវិញ។",
-                questionRead: "ឈេប៊ុន ឌឺរ៉ូ អាន់ ស៊ូនឺន មុលហ្គានអ៊ុល ភរិជី អាន់ខូ...",
-                options: [
-                    { text: "중고 거래와 자원 순환의 긍정적 효과", km: "ផលប៉ះពាល់វិជ្ជមាននៃការជួញដូរទំនិញជជុះ និងការវិលជុំនៃធនធាន" },
-                    { text: "중고 거래 애플리케이션의 사용 방법", km: "របៀបប្រើប្រាស់កម្មវិធីទំនិញជជុះ" },
-                    { text: "이웃과의 갈등을 해결하는 방법", km: "វិធីដោះស្រាយជម្លោះជាមួយអ្នកជិតខាង" },
-                    { text: "신제품 소비가 환경에 미치는 영향", km: "ឥទ្ធិពលនៃការប្រើប្រាស់ផលិតផលថ្មីចំពោះបរិស្ថាន" }
-                ],
-                correctIndex: 0,
-                explanation: "អត្ថបទនេះនិយាយអំពីការលក់របស់ជជុះ និងការចែករំលែក ដែលជួយការពារបរិស្ថាន ដូច្នេះវាត្រូវនឹង 'ផលវិជ្ជមាននៃការជួញដូរទំនិញជជុះ និងការវិលជុំធនធាន' (자원 순환)។",
-                vocabBreakdown: [
-                    { word: "중고 거래", mean: "ការទិញលក់ទំនិញជជុះ (របស់ប្រើរួច)" },
-                    { word: "자원 낭비", mean: "ការខ្ជះខ្ជាយធនធាន" },
-                    { word: "기여하다", mean: "រួមចំណែក / មានប្រយោជន៍ដល់" }
-                ]
-            },
-            {
-                id: 15,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글에서 강조하는 내용과 일치하지 않는(틀린) 것을 고르십시오.\n\n대기 오염을 줄이기 위해 기업들은 친환경 에너지를 사용하도록 공장 시설을 개선해야 한다. 또한 개인들은 가까운 거리는 걷거나 자전거를 이용하고, 에어컨 사용을 줄여 온실가스 배출을 낮추도록 노력해야 할 것이다.",
-                questionKm: "សូមជ្រើសរើសចម្លើយដែលខុស (មិនស្រប) នឹងខ្លឹមសារដែលអត្ថបទចង់សង្កត់ធ្ងន់៖ ដើម្បីកាត់បន្ថយការបំពុលបរិយាកាស ក្រុមហ៊ុននានាត្រូវកែលម្អរោងចក្រឱ្យប្រើថាមពលបៃតង។ ម្យ៉ាងទៀត បុគ្គលម្នាក់ៗត្រូវដើរ ឬជិះកង់បើទៅជិតៗ និងកាត់បន្ថយការប្រើម៉ាស៊ីនត្រជាក់ដើម្បីបន្ទាបការបំភាយឧស្ម័នផ្ទះកញ្ចក់។",
-                questionRead: "តេគី អូយ៉ុមអ៊ុល ជូរីគី វីហែ ឃីអប់ឌឺរឺន...",
-                options: [
-                    { text: "개인은 가까운 거리도 자동차를 타야 한다.", km: "បុគ្គលម្នាក់ៗត្រូវជិះឡានទោះជាទៅជិតៗក៏ដោយ។" },
-                    { text: "기업은 공장 시설을 친환경적으로 개선해야 한다.", km: "ក្រុមហ៊ុនត្រូវកែលម្អរោងចក្រឱ្យមានលក្ខណៈមេត្រីបរិស្ថាន។" },
-                    { text: "에어컨 사용을 줄이면 온실가스를 줄일 수 있다.", km: "ការកាត់បន្ថយម៉ាស៊ីនត្រជាក់អាចកាត់បន្ថយឧស្ម័នផ្ទះកញ្ចក់។" },
-                    { text: "대기 오염을 줄이기 위해 기업과 개인 모두 노력해야 한다.", km: "ទាំងក្រុមហ៊ុន និងបុគ្គលត្រូវតែប្រឹងប្រែងរួមគ្នាដើម្បីកាត់បន្ថយការបំពុលអាកាស។" }
-                ],
-                correctIndex: 0,
-                explanation: "ក្នុងអត្ថបទប្រាប់ថា '가까운 거리는 걷거나 자전거를 이용' (ទៅជិតៗត្រូវដើរឬជិះកង់) ដូច្នេះជម្រើសទី ១ ដែលនិយាយថាត្រូវជិះឡាន គឺខុសពីអត្ថបទ។",
-                vocabBreakdown: [
-                    { word: "대기 오염", mean: "ការបំពុលបរិយាកាស (ខ្យល់)" },
-                    { word: "시설 개선", mean: "ការកែលម្អសម្ភារៈ/បរិក្ខារ" },
-                    { word: "온실가스", mean: "ឧស្ម័នផ្ទះកញ្ចក់" }
-                ]
-            },
-            {
-                id: 16,
-                part: "ការអានយល់ន័យ",
-                questionKo: "빈칸에 들어갈 가장 알맞은 단어를 고르십시오.\n환경부에서는 환경 오염을 줄이기 위해 친환경 인증을 받은 제품에 ( ) 마크를 부착하여 소비자들이 쉽게 구별할 수 있도록 하고 있다.",
-                questionKm: "ជ្រើសរើសពាក្យបំពេញចន្លោះ៖ ក្រសួងបរិស្ថានបានវាយត្រា ( ) លើផលិតផលដែលទទួលស្គាល់ថាជាមេត្រីភាពបរិស្ថាន ដើម្បីឱ្យអ្នកប្រើប្រាស់ងាយស្រួលសម្គាល់។",
-                questionRead: "ហ្វាន់ឃ្យុងប៊ូអេស៊ូនឺន ហ្វាន់ឃ្យុង អូយ៉ុមអ៊ុល ជូរីគី វីហែ...",
-                options: [
-                    { text: "친환경", km: "친환경 (មេត្រីភាពបរិស្ថាន)" },
-                    { text: "수입품", km: "수입품 (ទំនិញនាំចូល)" },
-                    { text: "일회용", km: "일회용 (ប្រើម្ដងបោះចោល)" },
-                    { text: "유통기한", km: "유통기한 (កាលបរិច្ឆេទហួសកំណត់)" }
-                ],
-                correctIndex: 0,
-                explanation: "សញ្ញាសម្គាល់សម្រាប់ផលិតផលមិនបំផ្លាញបរិស្ថាន ហៅថា `친환경 마크` (ស្លាកសញ្ញា 친환경)។",
-                vocabBreakdown: [
-                    { word: "환경부", mean: "ក្រសួងបរិស្ថាន" },
-                    { word: "인증", mean: "ការបញ្ជាក់ទទួលស្គាល់ / បញ្ជាក់គុណភាព" },
-                    { word: "부착하다", mean: "បិទភ្ជាប់ / វាយត្រាភ្ជាប់" }
-                ]
-            },
-            {
-                id: 17,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글을 읽고 알 수 있는 내용이 아닌 것은 무엇입니까?\n\n올바른 장바구니 사용은 비닐봉지 사용량을 줄여 환경 보호에 도움을 준다. 마트에 갈 때 에코백이나 장바구니를 미리 준비해 가면, 비닐봉지 구매 비용을 아낄 수 있을 뿐만 아니라 쓰레기를 줄이는 실천이 된다.",
-                questionKm: "តើខ្លឹមសារមួយណាដែលមិនអាចដឹងបានតាមរយៈអត្ថបទខាងក្រោម?៖ ការប្រើប្រាស់កន្ត្រក/ថង់យួរទិញអីវ៉ាន់បានត្រឹមត្រូវ ជួយកាត់បន្ថយការប្រើថង់ប្លាស្ទិក និងជួយការពារបរិស្ថាន។ ពេលទៅផ្សារ បើត្រៀមថង់ក្រណាត់ (Eco bag) ទៅមុន មិនត្រឹមតែសន្សំលុយទិញថង់ប្លាស្ទិកទេ ថែមទាំងជាការអនុវត្តកាត់បន្ថយសម្រាមទៀតផង។",
-                questionRead: "អុលភារ៉ឺន ឆាំងបាគូនី សាយុងអ៊ុល ភីនីលភុងជី...",
-                options: [
-                    { text: "장바구니를 쓰면 마트에서 할인을 더 많이 해 준다.", km: "បើប្រើថង់យួរផ្ទាល់ខ្លួន ផ្សារនឹងបញ្ចុះតម្លៃទំនិញឱ្យកាន់តែច្រើន។" },
-                    { text: "장바구니 사용은 비닐봉지 사용량을 줄여 준다.", km: "ការប្រើថង់យួរផ្ទាល់ខ្លួនជួយកាត់បន្ថយការប្រើថង់ប្លាស្ទិក។" },
-                    { text: "마트에 가기 전에 에코백을 미리 준비하면 좋다.", km: "មុនទៅផ្សារ គួរតែត្រៀមថង់ក្រណាត់ទុកជាមុន។" },
-                    { text: "장바구니를 사용하면 비닐봉지 값을 아낄 수 있다.", km: "បើប្រើថង់យួរផ្ទាល់ខ្លួន អាចសន្សំលុយថ្លៃថង់ប្លាស្ទិកបាន។" }
-                ],
-                correctIndex: 0,
-                explanation: "ក្នុងអត្ថបទមិនមាននិយាយទាល់តែសោះថា ផ្សារនឹងបញ្ចុះតម្លៃទំនិញឱ្យកាន់តែច្រើន (할인을 더 많이 해 준다) ពេលយើងយកថង់ទៅខ្លួនឯងនោះទេ។",
-                vocabBreakdown: [
-                    { word: "장바구니", mean: "កន្ត្រក/ថង់សម្រាប់ដាក់អីវ៉ាន់ទិញផ្សារ" },
-                    { word: "비닐봉지", mean: "ថង់ប្លាស្ទិក / ថង់កាត់" },
-                    { word: "비용을 아끼다", mean: "សន្សំសំចៃការចំណាយ" }
-                ]
-            },
-            {
-                id: 18,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 빈칸에 가장 알맞은 것을 고르십시오.\n환경을 보호하기 위해서는 물을 ( ) 쓰는 습관이 필요합니다. 양치할 때 양치 컵을 사용하면 물의 낭비를 줄일 수 있습니다.",
-                questionKm: "ជ្រើសរើសពាក្យបំពេញចន្លោះ៖ ដើម្បីការពារបរិស្ថាន យើងត្រូវមានទម្លាប់ ( ) ទឹក។ ពេលដុសធ្មេញ បើប្រើកែវទឹក អាចកាត់បន្ថយការខ្ជះខ្ជាយទឹកបាន។",
-                questionRead: "ហ្វាន់ឃ្យុងអ៊ុល ភូហូហាគី វីហែស៊ូនឺន មុលរ៊ុល ( ) ស្ស៊ូនឺន ស៊ុបគ្វានី...",
-                options: [
-                    { text: "아껴", km: "សន្សំសំចៃ" },
-                    { text: "버려", km: "ចោល" },
-                    { text: "오염시켜", km: "បំពុល" },
-                    { text: "흘려", km: "បង្ហូរចោល" }
-                ],
-                correctIndex: 0,
-                explanation: "តាមអត្ថន័យ ទម្លាប់ដែលល្អចំពោះទឹកគឺការសន្សំសំចៃទឹក `물을 아껴 쓰다`។",
-                vocabBreakdown: [
-                    { word: "아껴 쓰다", mean: "ប្រើប្រាស់ដោយសន្សំសំចៃ" },
-                    { word: "습관", mean: "ទម្លាប់" },
-                    { word: "양치 컵", mean: "កែវទឹកសម្រាប់ខ្ពុរមាត់ដុសធ្មេញ" }
-                ]
-            },
-            {
-                id: 19,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글의 내용과 같은 것을 고르십시오.\n\n최근 지구 온난화로 인해 세계 곳곳에서 이상 기후 현상이 나타나고 있습니다. 폭설, 폭염, 극심한 가뭄 등으로 많은 사람들이 피해를 입고 있으며, 이를 해결하기 위해 전 세계가 온실가스 감축을 위한 노력을 서두르고 있습니다.",
-                questionKm: "សូមជ្រើសរើសចម្លើយដែលត្រូវនឹងអត្ថបទ៖ ថ្មីៗនេះ បញ្ហាកម្ដៅផែនដីបានបង្កឱ្យមានបាតុភូតអាកាសធាតុប្រែប្រួលខុសប្រក្រតីនៅពាសពេញពិភពលោក។ មនុស្សជាច្រើនបានរងគ្រោះដោយសារព្រិលធ្លាក់ខ្លាំង កម្ដៅខ្លាំង និងគ្រោះរាំងស្ងួត ហើយដើម្បីដោះស្រាយបញ្ហានេះ ពិភពលោកកំពុងប្រញាប់ប្រញាល់កាត់បន្ថយឧស្ម័នផ្ទះកញ្ចក់។",
-                questionRead: "ឈេប៊ុន ជីគូ អូនណាន់ហ្វារ៉ូ អ៊ីនហែ សេហ្គ្យេ គូកុតស៊េស៊ូ...",
-                options: [
-                    { text: "지구 온난화 때문에 세계적으로 이상 기후가 발생하고 있다.", km: "ដោយសារតែកម្ដៅផែនដី ទើបមានអាកាសធាតុខុសប្រក្រតីកើតឡើងទូទាំងពិភពលោក។" },
-                    { text: "온실가스는 이상 기후와 아무런 관계가 없다.", km: "ឧស្ម័នផ្ទះកញ្ចក់មិនមានពាក់ព័ន្ធអ្វីនឹងអាកាសធាតុខុសប្រក្រតីឡើយ។" },
-                    { text: "이상 기후로 인한 인명 피해는 아직 발생하지 않았다.", km: "មិនទាន់មានមនុស្សរងគ្រោះដោយសារអាកាសធាតុខុសប្រក្រតីនៅឡើយទេ។" },
-                    { text: "전 세계는 온실가스를 더 많이 배출하기로 했다.", km: "ពិភពលោកបានសម្រេចចិត្តបំភាយឧស្ម័នផ្ទះកញ្ចក់ឱ្យកាន់តែច្រើន។" }
-                ],
-                correctIndex: 0,
-                explanation: "ប្រយោគដំបូងចែងថា '최구 지구 온난화로 인해... 이상 기후 현상이 나타나고 있습니다' ដូចនេះជម្រើសទី ១ គឺត្រឹមត្រូវទាំងស្រុង។",
-                vocabBreakdown: [
-                    { word: "이상 기후", mean: "អាកាសធាតុប្រែប្រួលខុសប្រក្រតី" },
-                    { word: "폭설 / 폭염 / 가뭄", mean: "ព្រិលធ្លាក់ខ្លាំង / រលកកម្ដៅ / គ្រោះរាំងស្ងួត" },
-                    { word: "감축", mean: "ការកាត់បន្ថយ / បន្ថយបរិមាណ" }
-                ]
-            },
-            {
-                id: 20,
-                part: "ការអានយល់ន័យ",
-                questionKo: "빈칸에 들어갈 가장 알맞은 말을 고르십시오.\n식당에서 음식을 남기면 쓰레기가 늘어나고 환경이 오염됩니다. 따라서 음식을 주문할 때는 자신이 ( ) 알맞게 주문해야 합니다.",
-                questionKm: "ជ្រើសរើសពាក្យបំពេញចន្លោះ៖ បើទុកសម្រាមអាហារសល់នៅហាង វានឹងធ្វើឱ្យសម្រាមកើនឡើង និងបំពុលបរិស្ថាន។ ដូចនេះពេលកុម្ម៉ង់អាហារ ត្រូវកុម្ម៉ង់ឱ្យសមល្មម (ដើម្បីកុំឱ្យសល់)។",
-                questionRead: "សិកដាំងអេស៊ូ អ៊ុមស៊ីកអ៊ុល ណាំហ្គីម្យុន...",
-                options: [
-                    { text: "남기지 않도록", km: "ដើម្បីកុំឱ្យសល់" },
-                    { text: "남기는 한", km: "ដរាបណាទុកឱ្យសល់" },
-                    { text: "남기느라고", km: "ដោយសារតែរវល់តែទុកឱ្យសល់" },
-                    { text: "남기지 않는 한", km: "ដរាបណាមិនទុកឱ្យសល់" }
-                ],
-                correctIndex: 0,
-                explanation: "គោលបំណងនៃការកុម្ម៉ង់អាហារសមល្មមគឺ 'ដើម្បីកុំឱ្យសល់អាហារ' ដូច្នេះត្រូវប្រើ `남기지 않도록`។",
-                vocabBreakdown: [
-                    { word: "음식을 남기다", mean: "ទុកអាហារឱ្យនៅសល់ / ស៊ីមិនអស់" },
-                    { word: "주문하다", mean: "កុម្ម៉ង់ / កម្មង់ទិញ" },
-                    { word: "따라서", mean: "ដូចនេះ / ហេតុនេះ" }
-                ]
-            },
-            {
-                id: 21,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글을 읽고 빈칸 ( ㉠ )에 들어갈 가장 알맞은 말을 고르십시오.\n\n종이 한 장을 만들기 위해서는 많은 나무가 베어져야 합니다. 우리가 종이를 아껴 ( ㉠ ) 무분별한 벌목을 막고 숲을 보전할 수 있습니다.",
-                questionKm: "សូមជ្រើសរើសពាក្យបំពេញចន្លោះ ( ㉠ )៖ ដើម្បីផលិតក្រដាសមួយសន្លឹក ដើមឈើជាច្រើនត្រូវគេកាប់រំលំ។ (ដរាបណាពួកយើងសន្សំសំចៃ) ក្រដាស ពួកយើងអាចទប់ស្កាត់ការកាប់បំផ្លាញព្រៃឈើខុសច្បាប់ និងរក្សាព្រៃឈើបាន។",
-                questionRead: "ឆុងអ៊ី ហាន់ ឆាំងអ៊ុល ម៉ានឌឺគី វីហែស៊ូនឺន...",
-                options: [
-                    { text: "쓰는 한", km: "ដរាបណាពួកយើងប្រើប្រាស់ដោយសន្សំសំចៃ" },
-                    { text: "쓰도록", km: "ដើម្បីឱ្យប្រើប្រាស់ដោយសន្សំសំចៃ" },
-                    { text: "쓰다 보면", km: "ប្រសិនបើប្រើប្រាស់ដោយសន្សំសំចៃជាបន្តបន្ទាប់" },
-                    { text: "쓰는 바람에", km: "ដោយសារតែប្រើប្រាស់ដោយសន្សំសំចៃ" }
-                ],
-                correctIndex: 0,
-                explanation: "ប្រយោគចង់និយាយថា ដរាបណាពួកយើងនៅតែបន្តទម្លាប់សន្សំសំចៃក្រដាស (아껴 쓰는 한) នោះយើងនឹងអាចការពារព្រៃឈើបាន។",
-                vocabBreakdown: [
-                    { word: "나무가 베어지다", mean: "ដើមឈើត្រូវបានគេកាប់រំលំ" },
-                    { word: "무분별하다", mean: "ដែលគ្មានការពិចារណា / ផ្តេសផ្តាស" },
-                    { word: "벌목", mean: "ការកាប់ឈើ / កាប់ព្រៃឈើ" }
-                ]
-            },
-            {
-                id: 22,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글의 중심 생각으로 가장 알맞은 것을 고르십시오.\n\n안전한 먹거리에 대한 관심이 높아지면서 화학 비료나 농약을 쓰지 않는 유기농 농산물을 찾는 소비자가 많아졌다. 유기농 농법은 우리의 건강을 지켜줄 뿐만 아니라 토양 오염을 막아 자연 생태계를 보전하는 데도 중요한 역할을 한다.",
-                questionKm: "សូមជ្រើសរើសគំនិតចម្បងនៃអត្ថបទ៖ ស្របពេលការចាប់អារម្មណ៍លើអាហារសុវត្ថិភាពកើនឡើង មានអ្នកទិញច្រើនឡើងស្វែងរកកសិផលសរីរាង្គ (유기농) ដែលមិនប្រើជីគីមីឬថ្នាំសម្លាប់សត្វល្អិត។ កសិកម្មសរីរាង្គមិនត្រឹមតែការពារសុខភាពយើងទេ ថែមទាំងការពារការបំពុលដី និងដើរតួសំខាន់ក្នុងការរក្សាប្រព័ន្ធអេកូឡូស៊ី។",
-                questionRead: "អាន់ចន់ហាន ម៉ុកករីអេ ឌេហាន ហ្ខាន់ស៊ីមី...",
-                options: [
-                    { text: "유기농 농법은 건강과 환경 보호 모두에 유익하다.", km: "កសិកម្មសរីរាង្គមានประโยชน์ខ្លាំងទាំងចំពោះសុខភាព និងការការពារបរិស្ថាន។" },
-                    { text: "화학 비료의 가격을 낮추어야 한다.", km: "ត្រូវតែបញ្ចុះតម្លៃជីគីមី។" },
-                    { text: "농산물의 종류를 더 다양하게 만들어야 한다.", km: "ត្រូវតែធ្វើឱ្យប្រភេទកសិផលមានភាពសម្បូរបែបជាងនេះ។" },
-                    { text: "소비자들은 가격이 저렴한 농산물만 좋아한다.", km: "អ្នកទិញចូលចិត្តតែសាច់កសិផលដែលមានតម្លៃថោកប៉ុណ្ណោះ។" }
-                ],
-                correctIndex: 0,
-                explanation: "អត្ថបទបញ្ជាក់ថា កសិផលសរីរាង្គជួយទាំងសុខភាពយើង (건강을 지켜줄 뿐만 아니라) និងការពារបរិស្ថានដី (토양 오염을 막아) ដូច្នេះជម្រើសទី ១ គឺត្រូវបំផុត។",
-                vocabBreakdown: [
-                    { word: "먹거리", mean: "អាហារ / របស់ញ៉ាំ" },
-                    { word: "유기농 농산물", mean: "កសិផលសរីរាង្គ (Organic)" },
-                    { word: "토양 오염", mean: "ការបំពុលដី" }
-                ]
-            },
-            {
-                id: 23,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 빈칸에 들어갈 가장 알맞은 어휘를 고르십시오.\n여름철 실내 온도를 지나치게 낮추면 건물 밖과의 온도 차이로 인해 감기에 걸리기 쉽고 에너지가 낭비됩니다. 냉방 온도를 냉방 적정 온도인 26℃로 ( ) 설정하는 것이 좋습니다.",
-                questionKm: "ជ្រើសរើសពាក្យបំពេញចន្លោះ៖ បើបន្ទាបសីតុណ្ហភាពក្នុងបន្ទប់ខ្លាំងពេកនៅរដូវក្ដៅ វាងាយនឹងធ្វើឱ្យផ្ដាសាយ និងខ្ជះខ្ជាយថាមពល។ វាជាការល្អក្នុងការកំណត់សីតុណ្ហភាពម៉ាស៊ីនត្រជាក់ (ដើម្បីឱ្យរក្សាបាន) សីតុណ្ហភាពសមស្រប ២៦ អង្សាសេ។",
-                questionRead: "យូរីមឆុល ស៊ីលនេ ណុងដូរឺល ជីណាឈីកេ...",
-                options: [
-                    { text: "유지되도록", km: "ដើម្បីឱ្យរក្សាបាន / ឱ្យនៅដដែល" },
-                    { text: "유지되는 한", km: "ដរាបណារក្សាបាន" },
-                    { text: "유지되느라고", km: "ដោយសារតែរវល់តែរក្សាបាន" },
-                    { text: "유지되다가", km: "កំពុងតែរក្សាបានស្រាប់តែ" }
-                ],
-                correctIndex: 0,
-                explanation: "ចង់បង្ហាញពីគោលបំណងចុងក្រោយនៃការកំណត់សីតុណ្ហភាព គឺធ្វើឡើង 'ដើម្បីឱ្យរក្សាបាន' នូវកម្រិត ២៦ អង្សាសេ ដូច្នេះប្រើ `유지되도록`។",
-                vocabBreakdown: [
-                    { word: "실내 온도", mean: "សីតុណ្ហភាពក្នុងបន្ទប់/ក្នុងអគារ" },
-                    { word: "냉방 적정 온도", mean: "សីតុណ្ហភាពម៉ាស៊ីនត្រជាក់សមស្រប" },
-                    { word: "유지되다", mean: "រក្សាទុកឱ្យនៅដដែល / រក្សាលំនឹង" }
-                ]
-            },
-            {
-                id: 24,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글의 내용과 일치하는 것은 무엇입니까?\n\n수도권 지역에서는 쓰레기를 많이 배출할수록 더 많은 비용을 내는 '쓰레기 종량제'를 실시하고 있습니다. 이를 통해 주민들이 스스로 쓰레기를 줄이도록 유도하고 있으며, 재활용품 분리배출률도 크게 높아지는 효과를 얻고 있습니다.",
-                questionKm: "តើខ្លឹមសារមួយណាត្រូវនឹងអត្ថបទ?៖ នៅតំបន់ជុំវិញរាជធានី (수도권) គេកំពុងអនុវត្ត 'ប្រព័ន្ធកំណត់ទំហំសម្រាម (쓰레기 종량제)' ដែលកាន់តែបោះសម្រាមច្រើន ត្រូវបង់លុយកាន់តែច្រើន។ តាមរយៈប្រព័ន្ធនេះ វាជម្រុញឱ្យប្រជាជនកាត់បន្ថយសម្រាមដោយខ្លួនឯង និងធ្វើឱ្យអត្រាបែងចែកសម្រាមកែច្នៃកើនឡើងខ្លាំង។",
-                questionRead: "ស៊ូដូគ្វន់ ជិយ៉ុកកេស្រ៊ូនឺន ស្ស្រេគីរឺល ម៉ានី...",
-                options: [
-                    { text: "쓰레기 종량제는 쓰레기를 줄이는 데 효과가 있다.", km: "ប្រព័ន្ធកំណត់ទំហំសម្រាម មានប្រសិទ្ធភាពក្នុងការកាត់បន្ថយសម្រាម។" },
-                    { text: "쓰레기를 많이 배출할수록 돈을 적게 낸다.", km: "កាន់តែបោះសម្រាមច្រើន គឹបង់លុយកាន់តែតិច។" },
-                    { text: "이 제도는 재활용품 분리배출을 방해한다.", km: "ប្រព័ន្ធនេះរារាំងការបែងចែកសម្រាមកែច្នៃឡើងវិញ។" },
-                    { text: "수도권 지역에서는 이 제도를 하지 않는다.", km: "នៅតំបន់ជុំវិញរាជធានី គេមិនអនុវត្តប្រព័ន្ធនេះឡើយ។" }
-                ],
-                correctIndex: 0,
-                explanation: "អត្ថបទបញ្ជាក់ថាប្រព័ន្ធនេះជួយឱ្យអ្នកស្រុកកាត់បន្ថយសម្រាម និងបង្កើនការកែច្នៃ ដូច្នេះវា 'មានប្រសិទ្ធភាពក្នុងការកាត់បន្ថយសម្រាម' (ជម្រើសទី ១)។",
-                vocabBreakdown: [
-                    { word: "수도권", mean: "តំបន់រាជធានីនិងជុំវិញ (Seoul, Incheon, Gyeonggi)" },
-                    { word: "쓰레기 종량제", mean: "ប្រព័ន្ធគិតលុយសម្រាមតាមទំហំថង់" },
-                    { word: "스스로", mean: "ដោយខ្លួនឯង" }
-                ]
-            },
-            {
-                id: 25,
-                part: "ការអានយល់ន័យ",
-                questionKo: "다음 글에서 설명하는 환경 오염의 종류는 무엇입니까?\n\n공장이나 축사에서 나오는 폐수가 정화되지 않은 채 강이나 바다로 흘러 들어가면 물고기들이 떼죽음을 당하고 사람이 마실 물이 부족해집니다. 또한 농경지가 오염되어 농작물에도 피해를 줍니다.",
-                questionKm: "តើប្រភេទនៃការបំពុលបរិស្ថានដែលអត្ថបទខាងក្រោមរៀបរាប់គឺអ្វី?៖ បើទឹកកខ្វក់បង្ហូរចេញពីរោងចក្រឬកសិដ្ឋានចិញ្ចឹមសត្វហូរចូលទន្លេឬសមុទ្រដោយមិនបានចម្រោះស្អាត វានឹងធ្វើឱ្យត្រីងាប់គគោក និងកង្វះទឹកស្អាតសម្រាប់មនុស្សផឹក។ វាក៏បំពុលដីស្រែចម្ការ និងខូចខាតដំណាំផងដែរ។",
-                questionRead: "ខុងចាំងអ៊ីណា ឈុកសាអេស៊ូ ណានឺន ផេស៊ូកា...",
-                options: [
-                    { text: "수질 오염", km: "ការបំពុលទឹក (Water pollution)" },
-                    { text: "대기 오염", km: "ការបំពុលខ្យល់/បរិយាកាស" },
-                    { text: "토양 오염", km: "ការបំពុលដី" },
-                    { text: "소음 공해", km: "ការបំពុលដោយសំឡេង" }
-                ],
-                correctIndex: 0,
-                explanation: "អត្ថបទនិយាយអំពីទឹកកខ្វក់ (폐수) ហូរចូលទន្លេសមុទ្រ (강이나 바다) ធ្វើឱ្យត្រីងាប់ និងខ្វះទឹកផឹក ដូច្នេះវាគឺជាការបំពុលទឹក `수질 오염`។",
-                vocabBreakdown: [
-                    { word: "폐수", mean: "ទឹកស្អុយ / ទឹកកខ្វក់បង្ហូរចោល" },
-                    { word: "떼죽음", mean: "ការងាប់/ស្លាប់គគោក (ស្លាប់ទាំងហ្វូង)" },
-                    { word: "수질 오염", mean: "ការបំពុលទឹក" }
-                ]
-            },
+        this.bindAudioButtons();
+        this.bindChoiceAudioButtons();
+        this.updatePowerButtons();
+      },
 
-            // PART 3: Korean Culture & Social Knowledge (26-30) - Level 4, Lesson 13 (환경 보전 운동)
-            {
-                id: 26,
-                part: "វប្បធម៌ & ចំណេះដឹងសង្គម",
-                questionKo: "한국에서 쓰레기를 버릴 때 재활용이 가능한 종이, 캔, 플라스틱 등을 따로 나누어 버리는 제도를 무엇이라고 합니까?",
-                questionKm: "នៅប្រទេសកូរ៉េ តើប្រព័ន្ធដែលតម្រូវឱ្យបែងចែកសម្រាមដែលអាចកែច្នៃបានដូចជា ក្រដាស កំប៉ុង និងជ័រ បោះផ្សេងៗពីគ្នា ហៅថាអ្វី?",
-                questionRead: "ហាន់ហ្គុកកេស៊ូ ស្ស្រេគីរឺល ភរិល តេ ជែហ្វាល់យ៉ុងអ៊ី ហ្ខាណុងហាន...",
-                options: [
-                    { text: "쓰레기 분리배출제", km: "ប្រព័ន្ធបែងចែកសម្រាមតាមប្រភេទ" },
-                    { text: "쓰레기 종량제", km: "ប្រព័ន្ធគិតថ្លៃសម្រាមតាមទំហំថង់" },
-                    { text: "음식물 쓰레기 물기 제거제", km: "ការបញ្ចុះជាតិទឹកសម្រាមអាហារ" },
-                    { text: "환경 부담금 제도", km: "ប្រព័ន្ធបង់ថ្លៃបន្ទុកបរិស្ថាន" }
-                ],
-                correctIndex: 0,
-                explanation: "ការបែងចែកសម្រាមកែច្នៃដូចជា ក្រដាស កំប៉ុង ជ័រ បោះដាច់ដោយឡែកពីគ្នា ហៅថា `쓰레기 분리배출` (ការបែងចែកសម្រាម)។",
-                vocabBreakdown: [
-                    { word: "따로", mean: "ផ្សេងគ្នា / ដាច់ដោយឡែក" },
-                    { word: "재활용", mean: "ការកែច្នៃយកមកប្រើឡើងវិញ" },
-                    { word: "캔", mean: "កំប៉ុង (ដែក/អាលុយមីញ៉ូម)" }
-                ]
-            },
-            {
-                id: 27,
-                part: "វប្បធម៌ & ចំណេះដឹងសង្គម",
-                questionKo: "한국의 '쓰레기 종량제'에 대한 설명으로 옳은(맞는) 것은 무엇입니까?",
-                questionKm: "តើការរៀបរាប់អំពី 'ប្រព័ន្ធកំណត់ទំហំសម្រាម (쓰레기 종량제)' នៅកូរ៉េមួយណាត្រឹមត្រូវ?",
-                questionRead: "ហាន់ហ្គុកគី ស្ស្រេគី ជុងល្យាំងជេអេ ឌេហាន ស៊លម្យុងអ៊ូរ៉ូ...",
-                options: [
-                    { text: "지정된 규격 봉투를 구입하여 쓰레기를 버려야 한다.", km: "ត្រូវតែទិញថង់សម្រាមដែលមានទំហំកំណត់ស្របច្បាប់ទើបអាចបោះសម្រាមបាន។" },
-                    { text: "쓰레기봉투는 아무 비닐봉지나 사용해도 된다.", km: "ថង់សម្រាម គឺប្រើថង់កាត់ប្លាស្ទិកធម្មតាណាក៏បាន។" },
-                    { text: "쓰레기를 많이 버릴수록 비용이 적게 든다.", km: "កាន់តែបោះសម្រាមច្រើន អស់លុយកាន់តែតិច។" },
-                    { text: "재활용품도 반드시 종량제 봉투에 넣어 버려야 한다.", km: "សម្រាមកែច្នៃឡើងវិញក៏ត្រូវតែដាក់ក្នុងថង់ទំហំកំណត់ (종량제) នេះដែរ។" }
-                ],
-                correctIndex: 0,
-                explanation: "ប្រព័ន្ធ `쓰레기 종량제` តម្រូវឱ្យប្រជាជនទិញថង់សម្រាមស្តង់ដារដែលលក់នៅតាមម៉ាតឬផ្សារ (`지정된 규격 봉투`) ដើម្បីដាក់សម្រាមទូទៅបោះចោល។",
-                vocabBreakdown: [
-                    { word: "규격 봉투", mean: "ថង់ខ្នាតស្តង់ដារ/ថង់កំណត់ទំហំ" },
-                    { word: "구입하다", mean: "ទិញ" },
-                    { word: "지정되다", mean: "ដែលបានកំណត់ / ជាក់លាក់" }
-                ]
-            },
-            {
-                id: 28,
-                part: "វប្បធម៌ & ចំណេះដឹងសង្គម",
-                questionKo: "한국에서 음식물 쓰레기를 버릴 때 주의해야 할 점으로 가장 올바른 것은 무엇입니까?",
-                questionKm: "តើចំណុចប្រុងប្រយ័ត្នដែលត្រឹមត្រូវបំផុតពេលបោះ 'សម្រាមអាហារ (음식물 쓰레기)' នៅកូរ៉េគឺអ្វី?",
-                questionRead: "ហាន់ហ្គុកកេស៊ូ អ៊ុមស៊ីកមុល ស្ស្រេគីរឺល ភរិល តេ ឈូអ៊ីហែយ៉ា ហាល...",
-                options: [
-                    { text: "물기를 최대한 제거한 후 음식물 쓰레기 전용봉투나 수거함에 버린다.", km: "ត្រូវចម្រោះជាតិទឹកចេញឱ្យអស់សិន រួចបោះចូលក្នុងថង់សម្រាមអាហារជាក់លាក់ ឬធុងប្រមូលសម្រាមអាហារ។" },
-                    { text: "일반 쓰레기와 함께 큰 봉투에 섞어서 버린다.", km: "ច្របល់ចូលគ្នាជាមួយសម្រាមទូទៅក្នុងថង់ធំហើយបោះចោល។" },
-                    { text: "동물의 뼈나 조개껍데기도 음식물 쓰레기로 버린다.", km: "ឆ្អឹងសត្វ ឬសំបកលៀសគ្រែងក៏អាចបោះចូលសម្រាមអាហារបានដែរ។" },
-                    { text: "물이 가득 찬 상태 그대로 버리는 것이 좋다.", km: "ទុកទឹកឱ្យពេញឆ្កឹះបែបណា បោះចោលបែបហ្នឹងគឺល្អជាង។" }
-                ],
-                correctIndex: 0,
-                explanation: "ពេលបោះសម្រាមអាហារ ដាច់ខាតត្រូវតែចម្រោះទឹកចេញឱ្យអស់ (`물기를 최대한 제거`) ហើយឆ្អឹងសត្វឬសំបកគ្រែងមិនរាប់ជាសម្រាមអាហារឡើយ។",
-                vocabBreakdown: [
-                    { word: "음식물 쓰레기", mean: "សម្រាមអាហារ" },
-                    { word: "물기를 제거하다", mean: "ជម្រះជាតិទឹក / ធ្វើឱ្យស្ងួតទឹក" },
-                    { word: "전용 봉투", mean: "ថង់ប្រើប្រាស់ជាក់លាក់សម្រាប់មុខងារមួយ" }
-                ]
-            },
-            {
-                id: 29,
-                part: "វប្បធម៌ & ចំណេះដឹងសង្គម",
-                questionKo: "한국의 대형마트나 상점에서 일회용 비닐봉지 대신에 제공하거나 판매하는 친환경 장바구니의 명칭과 일치하는 것은 무엇입니까?",
-                questionKm: "នៅតាមផ្សារទំនើបធំៗនៅកូរ៉េ ជំនួសឱ្យថង់ប្លាស្ទិកប្រើម្ដងរួចចោល គេតែងតែលក់ឬផ្ដល់ថង់យួរក្រណាត់មេត្រីភាពបរិស្ថាន តើវាមានឈ្មោះហៅថាអ្វី?",
-                questionRead: "ហាន់ហ្គុកគី ឌេហ្យុងម៉ាថឺណា សាំងចុមអេស៊ូ អ៊ីលហ្វេយុង...",
-                options: [
-                    { text: "에코백 (장바구니)", km: "에코백 / ថង់ក្រណាត់អកូ (장바구니)" },
-                    { text: "종이 쇼핑백", km: "ថង់ក្រដាស Shopping" },
-                    { text: "검정 비닐봉지", km: "ថង់កាត់ពណ៌ខ្មៅ" },
-                    { text: "보자기", km: "ក្រណាត់ខ្ចប់របស់ (ភូចាគី)" }
-                ],
-                correctIndex: 0,
-                explanation: "ថង់យួរធ្វើពីក្រណាត់ដែលអាចប្រើឡើងវិញបានច្រើនដងដើម្បីបរិស្ថាន ហៅថា `에코백` (Eco-bag) ឬ `장바구니`។",
-                vocabBreakdown: [
-                    { word: "대형마트", mean: "ផ្សារទំនើបខ្នាតធំ (ដូចជា E-mart, Lotte Mart)" },
-                    { word: "명칭", mean: "ឈ្មោះហៅជាផ្លូវការ" },
-                    { word: "제공하다", mean: "ផ្ដល់ជូន" }
-                ]
-            },
-            {
-                id: 30,
-                part: "វប្បធម៌ & ចំណេះដឹងសង្គម",
-                questionKo: "다음 중 한국의 환경 보전 운동에 해당하지 않는 것은 무엇입니까?",
-                questionKm: "តើសកម្មភាពមួយណាដែលមិនមែនជា 'ចលនារក្សាបរិស្ថាន (환경 보전 운동)' នៅប្រទេសកូរ៉េ?",
-                questionRead: "ថdisplayម ជុង ហាន់ហ្គុកគី ហ្វាន់ឃ្យុង ភូជុន អ៊ុនដុងអេ...",
-                options: [
-                    { text: "배달 음식 주문 시 일회용 수저 많이 요청하기", km: "ការសុំស្លាបព្រាចង្កឹះប្រើម្ដងរួចចោលឱ្យបានច្រើនពេលកម្មង់អាហារដឹកជញ្ជូន (Delivery)" },
-                    { text: "가까운 거리는 대중교통이나 자전거 이용하기", km: "ការដើរ ជិះកង់ ឬជិះឡានក្រុងពេលធ្វើដំណើរជិតៗ" },
-                    { text: "카페에서 개인 텀블러(컵) 사용하기", km: "ការប្រើប្រាស់ដបទឹកផ្ទាល់ខ្លួន (Tumbler) នៅហាងកាហ្វេ" },
-                    { text: "안 쓰는 가전제품 플러그 뽑아두기", km: "ការដកឌុយគ្រឿងអគ្គិសនីដែលមិនប្រើប្រាស់ចេញ" }
-                ],
-                correctIndex: 0,
-                explanation: "ការសុំស្លាបព្រាចង្កឹះជ័រប្រើម្ដងចោលច្រើន (`일회용 수저 많이 요청하기`) គឺជាការបង្កើតសម្រាមបន្ថែម មិនមែនជាការរក្សាបរិស្ថានឡើយ។",
-                vocabBreakdown: [
-                    { word: "해당하다", mean: "ត្រូវនឹង / រាប់បញ្ចូលក្នុង" },
-                    { word: "일회용 수저", mean: "ស្លាបព្រាចង្កឹះប្រើម្ដងរួចចោល" },
-                    { word: "텀블러", mean: "ដបរក្សាកម្ដៅ / ដបទឹកផ្ទាល់ខ្លួន" }
-                ]
-            }
-        ];
+      bindAudioButtons() {
+        const q = quizData[this.currentIndex];
+        document.getElementById('speakQuestionKo').onclick = () => window.smartSpeak(q.question, 'ko-KR');
+        document.getElementById('speakQuestionKm').onclick = () => window.smartSpeak(q.questionKh || '', 'km-KH');
 
-        class QuizManager {
-            constructor(questions) {
-                this.questions = questions;
-                this.currentIndex = 0;
-                this.userAnswers = new Array(questions.length).fill(null);
-                this.score = 0;
-                this.isAnswered = false;
-                
-                // Hint features flags
-                this.showHintQ = false;
-                this.showHintA = false;
-                this.eliminatedIndices = [];
-                
-                // Review mode flag
-                this.isReviewMode = false;
-            }
+        const pko = document.getElementById('speakPassageKo');
+        const pkm = document.getElementById('speakPassageKm');
+        if (pko) pko.onclick = () => q.passage ? window.smartSpeak(q.passage, 'ko-KR') : null;
+        if (pkm) pkm.onclick = () => q.passage ? window.smartSpeak(q.passageKh || '', 'km-KH') : null;
+      },
 
-            init() {
-                this.currentIndex = 0;
-                this.score = 0;
-                this.isAnswered = false;
-                this.isReviewMode = false;
-                this.userAnswers.fill(null);
-                this.resetHints();
-                this.renderQuestion();
-                
-                // Show hint elements
-                document.getElementById('btn-hint-q').style.display = 'inline-flex';
-                document.getElementById('btn-hint-50').style.display = 'inline-flex';
-                document.getElementById('btn-hint-a').style.display = 'inline-flex';
-            }
+      bindChoiceAudioButtons() {
+        document.querySelectorAll('.choice-speak-btn').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            const text = decodeURIComponent(btn.dataset.speak || '');
+            window.smartSpeak(text, btn.dataset.lang || 'ko-KR');
+          };
+        });
+      },
 
-            resetHints() {
-                this.showHintQ = false;
-                this.showHintA = false;
-                this.eliminatedIndices = [];
-                
-                // Reset UI active button states
-                document.getElementById('btn-hint-q').classList.remove('bg-amber-500', 'text-slate-950');
-                document.getElementById('btn-hint-q').classList.add('bg-slate-800', 'text-slate-300');
-                document.getElementById('btn-hint-a').classList.remove('bg-amber-500', 'text-slate-950');
-                document.getElementById('btn-hint-a').classList.add('bg-slate-800', 'text-slate-300');
-                document.getElementById('btn-hint-50').classList.remove('opacity-50', 'cursor-not-allowed');
-                document.getElementById('btn-hint-50').disabled = false;
-            }
+      selectAnswer(index) {
+        this.selectedAnswer = index;
+        document.querySelectorAll('#optionsContainer .option-btn').forEach(btn => {
+          btn.classList.remove('ring-2', 'ring-yellow-400');
+        });
+        const selectedBtn = document.querySelector(`#optionsContainer .option-btn[data-index="${index}"]`);
+        if (selectedBtn) {
+          selectedBtn.classList.add('ring-2', 'ring-yellow-400');
+        }
+      },
 
-            renderQuestion() {
-                audioPlayer.stop();
-                const q = this.questions[this.currentIndex];
-                this.isAnswered = this.userAnswers[this.currentIndex] !== null;
+      checkAnswer() {
+        if (this.selectedAnswer === null) {
+          alert('សូមជ្រើសរើសចម្លើយមួយជាមុនសិន។');
+          return;
+        }
+        const q = quizData[this.currentIndex];
+        const isCorrect = this.selectedAnswer === q.correctAnswer;
+        if (isCorrect) this.score++;
 
-                // Updates Header Info
-                document.getElementById('badge-part').innerText = q.part;
-                document.getElementById('progress-text').innerText = `${this.currentIndex + 1} / ${this.questions.length}`;
-                const pct = ((this.currentIndex + 1) / this.questions.length) * 100;
-                document.getElementById('progress-bar').style.width = `${pct}%`;
+        this.userAnswers.push({
+          questionId: q.id,
+          selected: this.selectedAnswer,
+          correct: q.correctAnswer,
+          isCorrect: isCorrect
+        });
 
-                // Main Layout Dynamic Formulation
-                let html = `
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-amber-500 text-slate-950 text-xs font-bold px-2 py-0.5 rounded-md">សំណួរទី ${q.id}</span>
-                        <button onclick="audioPlayer.togglePlay(quizQuestions[${this.currentIndex}].questionKo, 'ko-KR')" class="w-10 h-10 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 flex items-center justify-center transition border border-amber-500/20" title="ស្តាប់សំឡេង">
-                            <i id="speaker-icon" class="fa-solid fa-volume-high text-base text-amber-400"></i>
-                        </button>
-                    </div>
+        this.isChecked = true;
 
-                    <div class="text-lg md:text-xl font-medium text-slate-100 whitespace-pre-line mb-2" id="text-ko-q">${q.ko || q.questionKo}</div>
-                `;
+        document.querySelectorAll('#optionsContainer .option-btn').forEach(btn => {
+          const idx = Number(btn.dataset.index);
+          btn.classList.add('disabled');
+          if (idx === q.correctAnswer) btn.classList.add('correct');
+          if (idx === this.selectedAnswer && idx !== q.correctAnswer) btn.classList.add('incorrect');
 
-                // Hint Question Display Toggle
-                if (this.showHintQ || this.isAnswered || this.isReviewMode) {
-                    html += `
-                        <div class="text-xs text-slate-400 italic mb-2 border-l-2 border-amber-500/50 pl-2">🗣️ ${q.questionRead}</div>
-                        <div class="text-sm text-slate-300 font-medium mb-4 bg-slate-900/40 p-3 rounded-lg border border-slate-800/80">${q.questionKm}</div>
-                    `;
-                }
+          const kh = btn.querySelector('.choice-kh');
+          const roman = btn.querySelector('.choice-roman');
+          if (kh) kh.classList.remove('hidden');
+          if (roman) roman.classList.remove('hidden');
+        });
 
-                html += `<div class="space-y-3 mt-4" id="options-block">`;
+        document.getElementById('questionKhmer').classList.remove('hidden');
+        document.getElementById('questionRoman').classList.remove('hidden');
 
-                q.options.forEach((opt, idx) => {
-                    const isSelected = this.userAnswers[this.currentIndex] === idx;
-                    const isCorrect = idx === q.correctIndex;
-                    let optClass = "w-full text-left custom-card border border-slate-800 rounded-xl p-4 transition-all duration-200 flex flex-col gap-1 cursor-pointer hover:border-slate-600 active:scale-[0.99]";
-                    
-                    if (this.eliminatedIndices.includes(idx)) {
-                        optClass += " opacity-25 pointer-events-none border-dashed";
-                    }
-
-                    if (this.isAnswered || this.isReviewMode) {
-                        if (isCorrect) {
-                            optClass += " bg-emerald-500/10 border-emerald-500 text-emerald-400 font-medium";
-                        } else if (isSelected) {
-                            optClass += " bg-rose-500/10 border-rose-500 text-rose-400";
-                        } else {
-                            optClass += " opacity-50 border-slate-800";
-                        }
-                    } else {
-                        if (isSelected) {
-                            optClass += " border-amber-500 bg-amber-500/5 text-amber-400";
-                        }
-                    }
-
-                    html += `
-                        <button onclick="quizManager.selectOption(${idx})" class="${optClass}" ${this.isAnswered || this.isReviewMode ? 'disabled' : ''}>
-                            <div class="flex items-center gap-3">
-                                <span class="w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs ${isSelected ? 'bg-amber-500 text-slate-900' : 'bg-slate-800 text-slate-400'}">${idx + 1}</span>
-                                <span class="font-medium text-sm md:text-base">${opt.text}</span>
-                            </div>
-                    `;
-
-                    if (this.showHintA || this.isAnswered || this.isReviewMode) {
-                        html += `<span class="text-xs ${isCorrect ? 'text-emerald-400/80' : isSelected ? 'text-rose-400/80' : 'text-slate-400'} ml-9 border-t border-slate-800/50 pt-1 mt-0.5">${opt.km}</span>`;
-                    }
-
-                    html += `</button>`;
-                });
-
-                html += `</div>`;
-
-                // Visual Feedback Reveal Box
-                if (this.isAnswered || this.isReviewMode) {
-                    html += `
-                        <div class="mt-6 border-t border-slate-800 pt-5 space-y-4 animate-fadeIn">
-                            <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800">
-                                <h4 class="text-sm font-bold text-amber-400 mb-1.5 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-circle-info"></i> ការពន្យល់លម្អិត (Explanation)
-                                </h4>
-                                <p class="text-slate-300 text-xs md:text-sm leading-relaxed">${q.explanation}</p>
-                            </div>
-
-                            <div>
-                                <h4 class="text-sm font-bold text-slate-300 mb-2 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-book-open text-xs"></i> ពាក្យសព្ទគន្លឹះ (Vocabulary Breakdown)
-                                </h4>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    `;
-                    q.vocabBreakdown.forEach(v => {
-                        html += `
-                            <div class="bg-slate-900/30 border border-slate-800/60 rounded-lg px-3 py-2 flex justify-between items-center text-xs">
-                                <span class="font-medium text-amber-300">${v.word}</span>
-                                <span class="text-slate-400">${v.mean}</span>
-                            </div>
-                        `;
-                    });
-                    html += `
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                document.getElementById('quiz-container').innerHTML = html;
-                this.updateNextButton();
-            }
-
-            selectOption(idx) {
-                if (this.isAnswered || this.isReviewMode) return;
-                this.userAnswers[this.currentIndex] = idx;
-                this.isAnswered = true;
-
-                if (idx === this.questions[this.currentIndex].correctIndex) {
-                    this.score++;
-                }
-                this.renderQuestion();
-            }
-
-            toggleHintQuestion() {
-                this.showHintQ = !this.showHintQ;
-                const btn = document.getElementById('btn-hint-q');
-                if (this.showHintQ) {
-                    btn.classList.replace('bg-slate-800', 'bg-amber-500');
-                    btn.classList.replace('text-slate-300', 'text-slate-950');
-                } else {
-                    btn.classList.replace('bg-amber-500', 'bg-slate-800');
-                    btn.classList.replace('text-slate-950', 'text-slate-300');
-                }
-                this.renderQuestion();
-            }
-
-            toggleHintAnswers() {
-                this.showHintA = !this.showHintA;
-                const btn = document.getElementById('btn-hint-a');
-                if (this.showHintA) {
-                    btn.classList.replace('bg-slate-800', 'bg-amber-500');
-                    btn.classList.replace('text-slate-300', 'text-slate-950');
-                } else {
-                    btn.classList.replace('bg-amber-500', 'bg-slate-800');
-                    btn.classList.replace('text-slate-950', 'text-slate-300');
-                }
-                this.renderQuestion();
-            }
-
-            trigger5050() {
-                if (this.isAnswered || this.isReviewMode) return;
-                const q = this.questions[this.currentIndex];
-                const correct = q.correctIndex;
-                let wrongIndices = [];
-                for (let i = 0; i < 4; i++) {
-                    if (i !== correct) wrongIndices.push(i);
-                }
-                // Shuffle and eliminate 2 wrong options
-                wrongIndices.sort(() => Math.random() - 0.5);
-                this.eliminatedIndices = [wrongIndices[0], wrongIndices[1]];
-
-                const btn = document.getElementById('btn-hint-50');
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
-                btn.disabled = true;
-
-                this.renderQuestion();
-            }
-
-            updateNextButton() {
-                const btn = document.getElementById('btn-next');
-                if (this.isAnswered || this.isReviewMode) {
-                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    btn.classList.add('hover:bg-amber-400');
-                    btn.disabled = false;
-                    if (this.currentIndex === this.questions.length - 1 && !this.isReviewMode) {
-                        btn.innerHTML = `មើលលទ្ធផល <i class="fa-solid fa-square-poll-vertical"></i>`;
-                    } else {
-                        btn.innerHTML = `បន្ទាប់ <i class="fa-solid fa-chevron-right"></i>`;
-                    }
-                } else {
-                    btn.classList.add('opacity-50', 'cursor-not-allowed');
-                    btn.classList.remove('hover:bg-amber-400');
-                    btn.disabled = true;
-                    btn.innerHTML = `បន្ទាប់ <i class="fa-solid fa-chevron-right"></i>`;
-                }
-            }
-
-            nextQuestion() {
-                if (!this.isAnswered && !this.isReviewMode) return;
-
-                if (this.isReviewMode) {
-                    if (this.currentIndex < this.questions.length - 1) {
-                        this.currentIndex++;
-                        this.renderQuestion();
-                    } else {
-                        this.showResultsScreen();
-                    }
-                    return;
-                }
-
-                if (this.currentIndex < this.questions.length - 1) {
-                    this.currentIndex++;
-                    this.resetHints();
-                    this.renderQuestion();
-                } else {
-                    this.showResultsScreen();
-                }
-            }
-
-            showResultsScreen() {
-                audioPlayer.stop();
-                // Hide helper hints triggers
-                document.getElementById('btn-hint-q').style.display = 'none';
-                document.getElementById('btn-hint-50').style.display = 'none';
-                document.getElementById('btn-hint-a').style.display = 'none';
-
-                const nextBtn = document.getElementById('btn-next');
-                nextBtn.innerHTML = `ធ្វើឡើងវិញ <i class="fa-solid fa-rotate-right"></i>`;
-                nextBtn.onclick = () => quizManager.init();
-
-                const percent = Math.round((this.score / this.questions.length) * 100);
-                let passBadge = percent >= 60 
-                    ? `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold text-sm">ជាប់ (PASSED)</span>`
-                    : `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full font-bold text-sm">ធ្លាក់ (FAILED)</span>`;
-
-                let html = `
-                    <div class="text-center py-6 animate-fadeIn">
-                        <div class="w-24 h-24 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-4 border-2 border-amber-500/20 shadow-lg">
-                            <i class="fa-solid fa-trophy text-4xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-slate-100 mb-1">បញ្ចប់ការធ្វើតេស្ត!</h2>
-                        <p class="text-slate-400 text-sm mb-4">កម្រិត ៤ មេរៀនទី ១៣ - 환경 보호</p>
-                        
-                        <div class="my-3">${passBadge}</div>
-
-                        <div class="bg-slate-900/60 max-w-sm mx-auto rounded-2xl p-5 border border-slate-800 space-y-3 mt-6">
-                            <div class="flex justify-between items-center text-sm border-b border-slate-800/60 pb-2">
-                                <span class="text-slate-400">ពិន្ទុទទួលបាន (Score):</span>
-                                <span class="text-amber-400 font-bold text-lg">${this.score} / ${this.questions.length}</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-slate-400">ភាគរយសមត្ថភាព (Percentage):</span>
-                                <span class="text-slate-200 font-bold">${percent}%</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center max-w-sm mx-auto">
-                            <button onclick="quizManager.startReviewMode()" class="w-full bg-slate-800 border border-slate-700 text-slate-200 hover:text-white py-3 px-4 rounded-xl font-bold text-sm transition active:scale-95 flex items-center justify-center gap-2 shadow-md">
-                                <i class="fa-solid fa-magnifying-glass-chart"></i> ឆែកមើលចម្លើយឡើងវិញ
-                            </button>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('quiz-container').innerHTML = html;
-                document.getElementById('progress-bar').style.width = '100%';
-                document.getElementById('progress-text').innerText = "លទ្ធផល";
-            }
-
-            startReviewMode() {
-                this.isReviewMode = true;
-                this.currentIndex = 0;
-                
-                document.getElementById('btn-hint-q').style.display = 'none';
-                document.getElementById('btn-hint-50').style.display = 'none';
-                document.getElementById('btn-hint-a').style.display = 'none';
-                
-                const nextBtn = document.getElementById('btn-next');
-                nextBtn.onclick = () => this.nextQuestion();
-                
-                this.renderQuestion();
-            }
-
-            goBack() {
-                if(confirm("តើអ្នកចង់ចាកចេញពីការប្រឡងនេះមែនទេ?")) {
-                    alert("ប្រព័ន្ធនឹងបញ្ជូនត្រឡប់ទៅទំព័រដើមមេរៀនស្វ័យប្រវត្ត។");
-                }
-            }
+        if (q.passage) {
+          document.getElementById('passageKhmer').classList.remove('hidden');
+          document.getElementById('passageRoman').classList.remove('hidden');
         }
 
-        const quizManager = new QuizManager(quizQuestions);
-        window.onload = () => quizManager.init();
-    </script>
+        const resultArea = document.getElementById('resultArea');
+        const resultBadge = document.getElementById('resultBadge');
+        resultArea.classList.remove('hidden');
+
+        if (isCorrect) {
+          resultBadge.textContent = 'ត្រឹមត្រូវ ✅';
+          resultBadge.style.background = 'rgba(16,185,129,.15)';
+          resultBadge.style.color = '#A7F3D0';
+          resultBadge.style.border = '1px solid #10B981';
+        } else {
+          resultBadge.textContent = 'មិនត្រឹមត្រូវ ❌';
+          resultBadge.style.background = 'rgba(239,68,68,.15)';
+          resultBadge.style.color = '#FECACA';
+          resultBadge.style.border = '1px solid #EF4444';
+        }
+
+        document.getElementById('explanationKo').textContent = q.explanationKo || '';
+        document.getElementById('explanationKm').textContent = q.explanationKh || '';
+        document.getElementById('vocabBreakdown').textContent = 'ពន្យល់ពាក្យ: ' + (q.vocab || '');
+
+        document.getElementById('checkBtn').classList.add('hidden');
+        document.getElementById('nextBtn').classList.remove('hidden');
+        document.getElementById('scoreLabel').textContent = this.score;
+        document.getElementById('progressFill').style.width = (((this.currentIndex + 1) / quizData.length) * 100) + '%';
+      },
+
+      nextQuestion() {
+        if (this.currentIndex < quizData.length - 1) {
+          this.currentIndex++;
+          this.renderQuestion();
+        } else {
+          this.showResult();
+        }
+      },
+
+      showResult() {
+        document.getElementById('quizScreen').classList.add('hidden');
+        document.getElementById('resultScreen').classList.remove('hidden');
+        document.getElementById('finalScore').textContent = this.score;
+
+        let msg = '';
+        if (this.score >= 27) msg = 'ល្អឥតខ្ចោះ! អ្នកយល់មេរៀននេះបានយ៉ាងល្អ។';
+        else if (this.score >= 21) msg = 'ល្អណាស់! អ្នកមានការយល់ដឹងល្អ ហើយអាចរំលឹកចំណុចខ្លះៗបន្ថែម។';
+        else if (this.score >= 15) msg = 'លទ្ធផលល្អមធ្យម។ សូម Review ឡើងវិញជាពិសេសផ្នែក -는 한 និង -도록។';
+        else msg = 'សូមកុំបោះបង់។ Review ម្តងទៀត ហើយសាកល្បងឡើងវិញ អ្នកនឹងប្រសើរឡើង។';
+        document.getElementById('finalMessage').textContent = msg;
+
+        this.renderReview();
+      },
+
+      renderReview() {
+        const reviewContainer = document.getElementById('reviewContainer');
+        reviewContainer.innerHTML = '';
+
+        quizData.forEach((q, i) => {
+          const ans = this.userAnswers[i];
+          const userIdx = ans ? ans.selected : null;
+          const correctIdx = q.correctAnswer;
+
+          const card = document.createElement('div');
+          card.className = 'review-card rounded-2xl p-5 mb-4';
+
+          let optionsHTML = '';
+          q.answerOptions.forEach((opt, idx) => {
+            let cls = 'border border-slate-700 rounded-xl p-3 mt-2';
+            if (idx === correctIdx) cls += ' bg-emerald-900/30 border-emerald-500';
+            if (userIdx === idx && idx !== correctIdx) cls += ' bg-red-900/30 border-red-500';
+            optionsHTML += `
+              <div class="${cls}">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div>${idx + 1}. ${opt.text}</div>
+                    <div class="text-muted mt-1">${opt.kh || ''}</div>
+                    <div class="text-muted mt-1">${opt.roman || ''}</div>
+                  </div>
+                  <button class="speaker-btn" onclick="window.smartSpeak('${this.escapeJs(opt.text)}','ko-KR')">🔊</button>
+                </div>
+              </div>
+            `;
+          });
+
+          card.innerHTML = `
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm text-muted mb-1">Q${i + 1} • ${q.section}</div>
+                <div class="font-bold text-lg">${q.question}</div>
+                <div class="text-muted mt-2">${q.questionKh || ''}</div>
+                <div class="text-muted mt-1">${q.roman || ''}</div>
+              </div>
+              <button class="speaker-btn" onclick="window.smartSpeak('${this.escapeJs(q.question)}','ko-KR')">🔊</button>
+            </div>
+            ${q.passage ? `
+              <div class="explanation-box rounded-xl p-4 mt-4">
+                <div class="font-semibold mb-2">지문</div>
+                <div>${q.passage}</div>
+                <div class="text-muted mt-2">${q.passageKh || ''}</div>
+                <div class="text-muted mt-1">${q.passageRoman || ''}</div>
+              </div>
+            ` : ''}
+            <div class="mt-4">${optionsHTML}</div>
+            <div class="mt-4 text-sm">
+              <div>អ្នកជ្រើសរើស: <span class="font-semibold">${userIdx !== null ? (userIdx + 1) + '. ' + q.answerOptions[userIdx].text : 'មិនមាន'}</span></div>
+              <div>ចម្លើយត្រឹមត្រូវ: <span class="font-semibold text-emerald-300">${correctIdx + 1}. ${q.answerOptions[correctIdx].text}</span></div>
+            </div>
+            <div class="explanation-box rounded-xl p-4 mt-4">
+              <div>${q.explanationKo || ''}</div>
+              <div class="text-muted mt-2">${q.explanationKh || ''}</div>
+              <div class="text-muted mt-2">ពន្យល់ពាក្យ: ${q.vocab || ''}</div>
+            </div>
+          `;
+          reviewContainer.appendChild(card);
+        });
+      },
+
+      escapeJs(str) {
+        return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, ' ');
+      },
+
+      toggleQuestionHint() {
+        if (this.isChecked || this.usedQuestionHint) {
+          document.getElementById('questionKhmer').classList.remove('hidden');
+          return;
+        }
+        this.usedQuestionHint = true;
+        document.getElementById('questionKhmer').classList.remove('hidden');
+        const q = quizData[this.currentIndex];
+        if (q.passage) document.getElementById('passageKhmer').classList.remove('hidden');
+        this.updatePowerButtons();
+      },
+
+      toggleChoiceHint() {
+        document.querySelectorAll('.choice-kh').forEach(el => el.classList.remove('hidden'));
+        this.usedChoiceHint = true;
+        this.updatePowerButtons();
+      },
+
+      useFifty() {
+        if (this.usedFifty || this.isChecked) return;
+        const q = quizData[this.currentIndex];
+        const wrongIndexes = q.answerOptions.map((_, i) => i).filter(i => i !== q.correctAnswer);
+        wrongIndexes.sort(() => Math.random() - 0.5);
+        const removeTwo = wrongIndexes.slice(0, 2);
+
+        removeTwo.forEach(idx => {
+          const btn = document.querySelector(`#optionsContainer .option-btn[data-index="${idx}"]`);
+          if (btn) btn.classList.add('hidden-el');
+        });
+        this.usedFifty = true;
+        this.updatePowerButtons();
+      },
+
+      updatePowerButtons() {
+        document.getElementById('hintQuestionBtn').disabled = this.usedQuestionHint;
+        document.getElementById('hintChoicesBtn').disabled = this.usedChoiceHint;
+        document.getElementById('fiftyBtn').disabled = this.usedFifty;
+
+        ['hintQuestionBtn','hintChoicesBtn','fiftyBtn'].forEach(id => {
+          const btn = document.getElementById(id);
+          if (btn.disabled) btn.classList.add('opacity-50', 'cursor-not-allowed');
+          else btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        });
+      }
+    };
+
+    document.getElementById('startBtn').addEventListener('click', () => quizManager.start());
+    document.getElementById('checkBtn').addEventListener('click', () => quizManager.checkAnswer());
+    document.getElementById('nextBtn').addEventListener('click', () => quizManager.nextQuestion());
+    document.getElementById('reviewBtn').addEventListener('click', () => {
+      document.getElementById('reviewContainer').classList.toggle('hidden');
+      document.getElementById('reviewBtn').textContent =
+        document.getElementById('reviewContainer').classList.contains('hidden')
+          ? 'ឆែកមើលចម្លើយឡើងវិញ'
+          : 'បិទ Review';
+    });
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      document.getElementById('reviewContainer').classList.add('hidden');
+      document.getElementById('reviewBtn').textContent = 'ឆែកមើលចម្លើយឡើងវិញ';
+      document.getElementById('resultScreen').classList.add('hidden');
+      document.getElementById('startScreen').classList.remove('hidden');
+    });
+    document.getElementById('hintQuestionBtn').addEventListener('click', () => quizManager.toggleQuestionHint());
+    document.getElementById('hintChoicesBtn').addEventListener('click', () => quizManager.toggleChoiceHint());
+    document.getElementById('fiftyBtn').addEventListener('click', () => quizManager.useFifty());
+    document.getElementById('pauseAudioBtn').addEventListener('click', () => window.pauseSmartSpeak());
+
+    window.KIIP_ROUTER = {
+      getCurrentMeta() {
+        return lessonMap;
+      },
+      buildPath(level, lesson) {
+        return `kiip/level${level}/lesson${lesson}/index.html`;
+      },
+      goTo(level, lesson) {
+        const path = this.buildPath(level, lesson);
+        return path;
+      },
+      autoConnectCurrent() {
+        return this.buildPath(lessonMap.level, lessonMap.lesson);
+      }
+    };
+
+    window.addEventListener('load', () => {
+      if ('speechSynthesis' in window) {
+        try { window.speechSynthesis.getVoices(); } catch(e){}
+      }
+      console.log('KIIP Auto Route:', window.KIIP_ROUTER.autoConnectCurrent());
+    });
+  </script>
 </body>
 </html>
